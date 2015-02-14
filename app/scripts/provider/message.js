@@ -30,6 +30,7 @@ angular.module('unchatbar-data-chat')
          * @ngdoc service
          * @name unchatbar-data-chat.Message
          * @require $rootScope
+         * @require $window
          * @require $log
          * @require $sessionStorage
          * @require $localStorage
@@ -40,8 +41,8 @@ angular.module('unchatbar-data-chat')
          * store Text message
          *
          */
-        this.$get = ['$rootScope','$log', '$sessionStorage', '$localStorage', 'Broker', 'DataConnection',
-            function ($rootScope,$log, $sessionStorage, $localStorage, Broker, DataConnection) {
+        this.$get = ['$rootScope','$window','$log', '$sessionStorage', '$localStorage', 'Broker', 'DataConnection',
+            function ($rootScope,$window,$log, $sessionStorage, $localStorage, Broker, DataConnection) {
 
                 var api = {
                     /**
@@ -54,7 +55,7 @@ angular.module('unchatbar-data-chat')
                      */
                     _message: {
                         unread: [],
-                        read: []
+                        read: {}
                     },
 
                     /**
@@ -70,7 +71,7 @@ angular.module('unchatbar-data-chat')
                         this._message = storage.$default({
                             textMessage: {
                                 unread: [],
-                                read: []
+                                read: {}
                             }
                         }).textMessage;
                     },
@@ -87,10 +88,13 @@ angular.module('unchatbar-data-chat')
                      * init storage
                      */
                     send: function (users, message, channel) {
+                        var date = new $window.Date();
                         var message = {
                             channel: channel,
                             text: message,
-                            meta: {}
+                            meta: {
+                                sendStamp :date
+                            }
                         };
                         _.forEach(users, function (user) {
                             DataConnection.send(user, '', 'Message', message);
@@ -116,8 +120,7 @@ angular.module('unchatbar-data-chat')
                     storeMessage: function (from, message) {
                         var channel = message.channel || '';
                         if (channel){
-                            this._message.unread[channel] = this._message.unread[channel] || [];
-                            this._message.unread[channel].push({message: message, from: from});
+                            this._message.unread.push({channel :channel, message: message, from: from});
                         } else {
                             throw 'could not save message, channel is not defined';
                         }
@@ -146,10 +149,14 @@ angular.module('unchatbar-data-chat')
                      */
                     getMessageFromChannel: function (channel) {
                         this._message.read[channel] = this._message.read[channel] || [];
-                        if (this._message.unread[channel]) {
-                            _.forEach(this._message.unread[channel], function (message) {
-                                this._message.read[channel].push(message);
-                            });
+                        var moveMessage = false;
+                        while (-1 !== _.findIndex( this._message.unread, { 'channel': channel })) {
+                            var index = _.findIndex( this._message.unread, { 'channel': channel })
+                            this._message.read[channel].push(this._message.unread[index]);
+                            this._message.unread.splice(index,1);
+                            moveMessage = true;
+                        }
+                       if(moveMessage === true) {
                             /**
                              * @ngdoc event
                              * @name MessageUpdateReadMessage

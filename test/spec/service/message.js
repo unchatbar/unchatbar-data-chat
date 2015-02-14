@@ -1,20 +1,135 @@
 'use strict';
 
 describe('Serivce: phoneBook', function () {
-    var BrokerService, rootScope, sessionStorage, log, DataConnectionService;
+    var BrokerService, rootScope, windowService, sessionStorage, MessageService, DataConnectionService;
     beforeEach(module('unchatbar-data-chat'));
 
 
-    beforeEach(inject(function ($rootScope, $log, $sessionStorage, $localStorage, Broker, DataConnection) {
+    beforeEach(inject(function ($rootScope, $window, $sessionStorage, $localStorage, Broker, Message, DataConnection) {
         rootScope = $rootScope;
-        log = $log;
         BrokerService = Broker;
         sessionStorage = $sessionStorage;
+        MessageService = Message;
+        windowService = $window;
         DataConnectionService = DataConnection;
     }));
 
     describe('check methode', function () {
+        describe('initStorage', function () {
+            beforeEach(function () {
+                spyOn(sessionStorage, '$default').and.returnValue({textMessage: {test: 'data'}});
+                MessageService.initStorage();
+            });
+            it('should call `$sessionStorage.$default` with object', function () {
+                expect(sessionStorage.$default).toHaveBeenCalledWith({
+                    textMessage: {
+                        unread: [],
+                        read: {}
+                    }
+                });
+            });
+            it('should set  `MessageTextService._storage` return value from `$sessionStorage.$default`', function () {
+                expect(MessageService._message).toEqual({test: 'data'});
+            });
+        });
+        describe('send', function () {
+            var messageObject = {}, mockWindowDate;
+            beforeEach(function () {
+                spyOn(DataConnectionService, 'send').and.returnValue(true);
+                spyOn(MessageService, 'storeMessage').and.returnValue(true);
+                spyOn(BrokerService, 'getPeerId').and.returnValue('ownPeerId');
+                var oldDate = Date;
+                spyOn(windowService, 'Date').and.callFake(function () {
+                    mockWindowDate = new oldDate();
 
+                    return mockWindowDate;
+                });
+                MessageService.send(['user'], 'testText', 'channelA');
+                messageObject = {
+                    channel: 'channelA',
+                    text: 'testText',
+                    meta: {
+                        sendStamp: mockWindowDate
+                    }
+                }
+            });
+            it('should call `DataConnection.send` for all user with userId,`Message`,messageObject', function () {
+                expect(DataConnectionService.send).toHaveBeenCalledWith('user', '', 'Message', messageObject);
+            });
+
+            it('should call `DataConnection.send` for all user with userId,`Message`,messageObject', function () {
+                expect(MessageService.storeMessage).toHaveBeenCalledWith('ownPeerId', messageObject);
+            });
+        });
+        describe('storeMessage', function () {
+            it('should push message to `Message._message.unread`', function () {
+                MessageService.storeMessage('fromPeerId', {channel: 'channelA', text: 'message'});
+
+                expect(MessageService._message.unread).toEqual([
+                        {
+                            channel : 'channelA',
+                            message: {
+                                channel: 'channelA', text: 'message'
+                            },
+                            from: 'fromPeerId'
+                        }
+                    ]);
+            });
+        });
+
+        describe('getMessageFromChannel', function () {
+            beforeEach(function(){
+                spyOn(rootScope,'$broadcast').and.returnValue(true);
+            });
+            it('should return an empty array, when `Message._message.read` is empty', function () {
+                expect(MessageService.getMessageFromChannel('channelA')).toEqual([]);
+            });
+
+            it('should return `Message._message.read`', function () {
+                MessageService._message.read['channelA'] = ['data'];
+                expect(MessageService.getMessageFromChannel('channelA')).toEqual(['data']);
+            });
+
+            it('should not broadcast `MessageUpdateReadMessage`', function () {
+                expect(rootScope.$broadcast).not.toHaveBeenCalled();
+            });
+            describe('`Message._message.unread` to `Message._message.unread`', function () {
+                beforeEach(function () {
+                    MessageService._message.read['channelA'] = ['readData'];
+                    MessageService._message.unread = [
+                        {channel : 'channelB' , data : 'testA'},
+                        {channel : 'channelA' , data : 'testB'},
+                        {channel : 'channelB' , data : 'testC'}
+                    ];
+                });
+                it('should remove channel from `Message._message.unread` ', function () {
+                    MessageService.getMessageFromChannel('channelA');
+                    expect(MessageService._message.unread).toEqual([
+                        {channel : 'channelB' , data : 'testA'},
+                        {channel : 'channelB' , data : 'testC'}]);
+                });
+
+                it('should return merge data from `Message._message.unread` and `Message._message.unread` ', function () {
+                    expect(MessageService.getMessageFromChannel('channelA')).toEqual(['readData',
+                        { channel: 'channelA', data: 'testB' }]);
+                });
+
+                it('should broadcast `MessageUpdateReadMessage`', function () {
+                    MessageService.getMessageFromChannel('channelA');
+
+                    expect(rootScope.$broadcast).toHaveBeenCalledWith('MessageUpdateReadMessage', {});
+                });
+            });
+        });
+
+        describe('getUnreadMessageMap' , function(){
+           it('should return `this._message.unread` ' , function(){
+               MessageService._message.unread = ['unreadData'];
+
+               expect(MessageService.getUnreadMessageMap()).toEqual(['unreadData']);
+
+           });
+        });
 
     });
 });

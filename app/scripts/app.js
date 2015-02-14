@@ -12,7 +12,7 @@ angular.module('unchatbar-data-chat', [
     'constants',
     'ui.bootstrap',
     'ngStorage',
-    'unchatbar-connection',
-    'unchatbar-phone-book'
+    'unchatbar-connection'
+
 ]);
 

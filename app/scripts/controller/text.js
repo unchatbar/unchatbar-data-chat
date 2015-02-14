@@ -42,26 +42,28 @@ angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope','Me
          * @ngdoc methode
          * @name sendTextMessage
          * @methodOf unchatbar-data-chat.controller:unDataChatText
+         * @params {Array} users peer id from users
+         * @params {String} channel name of chat channel
          * @description
          *
          * send message to selected users from phone-book
          * directive call sendTextMessage by help of attribute (userIds,channel)
          */
         $scope.sendTextMessage = function (user,channel) {           
-            $scope.messageList = Message.send(users,$scope.text,channel);
+            Message.send(user,$scope.text,channel);
         };
 
         /**
          * @ngdoc methode
-         * @name readActiveMessageList
+         * @name getMessageListByChannel
          * @methodOf unchatbar-data-chat.controller:unDataChatText
          * @description
          *
          * read message by channel
          *
          */
-        $scope.getActiveMessageList = function () {
-            $scope.messageList = Message.getMessageFromChannel();
+        $scope.getMessageListByChannel = function (channel) {
+            $scope.messageList = Message.getMessageFromChannel(channel);
         };
 
         /**
