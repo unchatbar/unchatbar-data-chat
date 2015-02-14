@@ -10,7 +10,6 @@
  */
 angular.module('unchatbar-data-chat', [
     'constants',
-    'ui.bootstrap',
     'ngStorage',
     'unchatbar-connection'
 

@@ -44,7 +44,7 @@ describe('Serivce: phoneBook', function () {
 
                     return mockWindowDate;
                 });
-                MessageService.send(['user'], 'testText', 'channelA');
+                MessageService.send([{id:'user'}], 'testText', 'channelA');
                 messageObject = {
                     channel: 'channelA',
                     text: 'testText',
@@ -54,7 +54,7 @@ describe('Serivce: phoneBook', function () {
                 }
             });
             it('should call `DataConnection.send` for all user with userId,`Message`,messageObject', function () {
-                expect(DataConnectionService.send).toHaveBeenCalledWith('user', '', 'Message', messageObject);
+                expect(DataConnectionService.send).toHaveBeenCalledWith('user', '', 'dataChat', messageObject);
             });
 
             it('should call `DataConnection.send` for all user with userId,`Message`,messageObject', function () {

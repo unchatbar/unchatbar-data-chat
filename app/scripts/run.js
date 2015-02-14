@@ -11,8 +11,8 @@ angular.module('unchatbar-data-chat').run(['$rootScope', 'Message',
     function ($rootScope, Message) {
         Message.initStorage();
 
-        $rootScope.$on('ConnectionGetMessage_textChat', function (event, data) {
-            PhoneBook.copyGroupFromPartner(data.connection.peer, data.message.meta);
+        $rootScope.$on('ConnectionGetMessage_dataChat', function (event, data) {
+            Message.storeMessage(data.peerId, data.message.meta);
         });
 
 

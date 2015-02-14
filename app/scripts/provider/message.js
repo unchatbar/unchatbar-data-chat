@@ -97,7 +97,7 @@ angular.module('unchatbar-data-chat')
                             }
                         };
                         _.forEach(users, function (user) {
-                            DataConnection.send(user, '', 'Message', message);
+                            DataConnection.send(user.id, '', 'dataChat', message);
                         });
                         try {
                             this.storeMessage(Broker.getPeerId(), message);
@@ -127,7 +127,7 @@ angular.module('unchatbar-data-chat')
                         /**
                          * @ngdoc event
                          * @name MessageUpdateUnreadMessage
-                         * @eventOf unchatbar-contact.Message
+                         * @eventOf unchatbar-data-chat.Message
                          * @eventType broadcast on root scope
                          * @description
                          *
@@ -160,7 +160,7 @@ angular.module('unchatbar-data-chat')
                             /**
                              * @ngdoc event
                              * @name MessageUpdateReadMessage
-                             * @eventOf unchatbar-contact.Message
+                             * @eventOf unchatbar-data-chat.Message
                              * @eventType broadcast on root scope
                              * @description
                              *

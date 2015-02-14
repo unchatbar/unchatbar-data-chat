@@ -49,7 +49,7 @@ angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope','Me
          * send message to selected users from phone-book
          * directive call sendTextMessage by help of attribute (userIds,channel)
          */
-        $scope.sendTextMessage = function (user,channel) {           
+        $scope.sendTextMessage = function (user,channel) {
             Message.send(user,$scope.text,channel);
         };
 
