@@ -1,0 +1,123 @@
+<!doctype html>
+<html class="no-js" ng-app="unchatbar-data-message">
+<head>
+    <meta charset="utf-8">
+    <base href="/">
+    <title>unchatbar connection</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/unchatbar-user/app/styles/custom.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/offcanvas.css">
+    <link rel="stylesheet" href="styles/custom.css">
+    <!-- endbuild -->
+</head>
+<body>
+<div ui-view>
+    <div>
+        <un-connection-peer-id></un-connection-peer-id>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Client List</h2>
+                <un-connection-dialer></un-connection-dialer>
+                <un-contact-client-list></un-contact-client-list>
+            </div>
+            <div class="col-md-6">
+                <h2>Selected Client</h2>
+                <un-contact-client-selected></un-contact-client-selected>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Group Group</h2>
+                <un-contact-group-add></un-contact-group-add>
+                <un-contact-group-list></un-contact-group-list>
+            </div>
+            <div class="col-md-6">
+                <h2>Selected Group</h2>
+                <un-contact-group-selected></un-contact-group-selected>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+
+<!-- build:js(.) scripts/oldieshim.js -->
+<!--[if lt IE 9]>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.js"></script>
+<![endif]-->
+<!-- endbuild -->
+
+
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/peerjs/peer.js"></script>
+<script src="bower_components/ngstorage/ngStorage.js"></script>
+<script src="bower_components/lodash/dist/lodash.compat.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angularjs-dropdown-multiselect/src/angularjs-dropdown-multiselect.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/unchatbar-user/app/scripts/app.js"></script>
+<script src="bower_components/unchatbar-user/app/scripts/run.js"></script>
+<script src="bower_components/unchatbar-user/app/scripts/template.js"></script>
+<script src="bower_components/unchatbar-user/app/scripts/provider/profile.js"></script>
+<script src="bower_components/unchatbar-user/app/scripts/controller/profile.js"></script>
+<script src="bower_components/unchatbar-user/app/scripts/directive/profile-admin.js"></script>
+<script src="bower_components/unchatbar-user/app/scripts/directive/profile.js"></script>
+<script src="bower_components/unchatbar-connection/app/scripts/app.js"></script>
+<script src="bower_components/unchatbar-connection/app/scripts/run.js"></script>
+<script src="bower_components/unchatbar-connection/app/scripts/template.js"></script>
+<script src="bower_components/unchatbar-connection/app/scripts/provider/broker.js"></script>
+<script src="bower_components/unchatbar-connection/app/scripts/provider/data-connection.js"></script>
+<script src="bower_components/unchatbar-connection/app/scripts/service/peer.js"></script>
+<script src="bower_components/unchatbar-connection/app/scripts/directive/dialer.js"></script>
+<script src="bower_components/unchatbar-connection/app/scripts/directive/peerId.js"></script>
+<script src="bower_components/unchatbar-connection/app/scripts/controller/dialer.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/constants.js"></script>
+<script src="scripts/app.js"></script>
+<!-- Provider -->
+<script src="scripts/provider/phone-book.js"></script>
+<!-- Config -->
+<script src="scripts/config/server.js"></script>
+<script src="scripts/config/state.js"></script>
+<!-- Controller -->
+<script src="scripts/controller/client.js"></script>
+<script src="scripts/controller/group.js"></script>
+<!-- directive -->
+<script src="scripts/directive/client/list.js"></script>
+<script src="scripts/directive/client/selected.js"></script>
+<script src="scripts/directive/group/list.js"></script>
+<script src="scripts/directive/group/add.js"></script>
+<script src="scripts/directive/group/selected.js"></script>
+
+<!-- run -->
+<script src="scripts/run.js"></script>
+<!-- endbuild -->
+
+
+<script>
+    angular.module('unchatbar-contact').run(['$state','Broker',
+        function ($state, Broker) {
+            Broker.connectServer();
+            $state.go('contact');
+        }]);
+</script>
+</body>
+</html>
