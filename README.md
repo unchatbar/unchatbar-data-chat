@@ -1,7 +1,7 @@
 # Unchatbar Data Chat
 [![Build Status](https://travis-ci.org/unchatbar/unchatbar-text-message.svg?branch=master)](https://travis-ci.org/unchatbar/unchatbar-text-message)
 
-Peer to peer chat application using WebRTC technologies
+data chat 
 
 ## Requirements
 * Node.js 0.10+
