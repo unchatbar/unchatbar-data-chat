@@ -74,7 +74,7 @@ Message.getUnreadMessageMap();
 
 >
 ```html
-un-data-chat-message-box channel="{{[CHANNELNAME]}}"
+<un-data-chat-message-box channel="{{[CHANNELNAME]}}"
                                   user-map="[USERLIST IN CHANNEL]"></un-data-chat-message-box>
 ```
 
