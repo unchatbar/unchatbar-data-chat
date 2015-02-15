@@ -22,6 +22,7 @@ angular.module('unchatbar-data-chat').directive('unDataChatMessageBox', [
                 userMap: '='
             },
             link: function (scope) {
+
                 scope.$on('MessageUpdateUnreadMessage', function () {
                     getListByChannel();
                 });
@@ -30,6 +31,7 @@ angular.module('unchatbar-data-chat').directive('unDataChatMessageBox', [
                 });
                 function getListByChannel () {
                     if (scope.channel) {
+
                         scope.getMessageListByChannel(scope.channel);
                     }
                 }
