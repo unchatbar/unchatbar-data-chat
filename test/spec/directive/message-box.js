@@ -13,7 +13,7 @@ describe('Directive: unDataChatMessageBox', function () {
         );
         build = function () {
             var element = $compile("<un-data-chat-message-box data-channel=\"{{'channelA'}}\" " +
-            "user-map=\"{userA :{id:'userA',label: 'labelUserA'}}\"></un-data-chat-message-box>")($rootScope);
+            " data-user-map=\"{userA :{id:'userA',label: 'labelUserA'}}\"></un-data-chat-message-box>")($rootScope);
             $rootScope.$digest();
 
             return element;
