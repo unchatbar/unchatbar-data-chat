@@ -52,6 +52,11 @@
                 </form>
             </div>
         </div>
+
+
+        <h2>unread Message Box</h2>
+        <un-data-chat-unread-message user-map="userListAll"></un-data-chat-unread-message>
+        <hr>
         <h2>Message Box</h2>
         <un-data-chat-message-box channel="{{activeChannel.name}}" user-map="userList[activeChannel.name]"></un-data-chat-message-box>
     </div>
@@ -107,6 +112,7 @@
 
 <!-- directive -->
 <script src="scripts/directive/message-box.js"></script>
+<script src="scripts/directive/unread-message.js"></script>
 
 <!-- run -->
 <script src="scripts/run.js"></script>
@@ -136,14 +142,20 @@
                     id : ownPeerId,
                     label : 'mySelf'
                 };
-
+                $scope.userListAll = {};
 
 
                 $scope.addUser = function () {
                     var userId  =$scope.user.id;
                     $scope.userList[$scope.activeChannel.name][userId] = $scope.user;
                     $scope.user = {};
+                    mergeUserList();
                 }
+
+                function mergeUserList () {
+                    $scope.userListAll = _.merge($scope.userList.channelA,$scope.userList.channelB);
+                }
+                mergeUserList();
             });
 </script>
 </body>

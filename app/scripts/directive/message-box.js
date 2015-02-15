@@ -23,12 +23,12 @@ angular.module('unchatbar-data-chat').directive('unDataChatMessageBox', [
             },
             link: function (scope) {
                 scope.$on('MessageUpdateUnreadMessage', function () {
-                    getChannel();
+                    getListByChannel();
                 });
                 scope.$watch('channel',function(){
-                    getChannel();
+                    getListByChannel();
                 });
-                function getChannel () {
+                function getListByChannel () {
                     if (scope.channel) {
                         scope.getMessageListByChannel(scope.channel);
                     }

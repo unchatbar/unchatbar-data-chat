@@ -1,0 +1,8 @@
+<div>
+    <b>unread Message ({{unreadMessageList.length || 0}})</b>
+
+    <div data-ng-repeat="message in unreadMessageList">
+        From:{{userMap[message.from].label}} <br>
+        Message:{{message.message.text}}
+    </div>
+</div>
