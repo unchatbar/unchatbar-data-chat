@@ -31,7 +31,6 @@ angular.module('unchatbar-data-chat').directive('unDataChatMessageBox', [
                 });
                 function getListByChannel () {
                     if (scope.channel) {
-
                         scope.getMessageListByChannel(scope.channel);
                     }
                 }

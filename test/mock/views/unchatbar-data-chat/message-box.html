@@ -1,7 +1,6 @@
-
 <div>
-    <div data-ng-repeat="message in messageList" style="border:1px solid red">
-        From:{{userMap[message.from].label}} <br>
+    <div data-ng-repeat="message in messageList">
+        From:{{userMap[message.from].label}}
         Message:{{message.message.text}}
     </div>
     <textarea data-ng-model="text"></textarea>

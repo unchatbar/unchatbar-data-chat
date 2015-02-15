@@ -30,8 +30,8 @@ angular.module('unchatbar-data-chat').directive('unDataChatUnreadMessage', [
 
                 function getUnreadMessage () {
                     scope.getUnreadMessageList();
-
                 }
+                getUnreadMessage();
             }
         };
     }
