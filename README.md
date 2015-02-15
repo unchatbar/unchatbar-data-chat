@@ -1,5 +1,5 @@
-# Unchatbar contact
-[![Build Status](https://travis-ci.org/unchatbar/unchatbar-phone-book.svg?branch=master)](https://travis-ci.org/unchatbar/unchatbar-phone-book)
+# Unchatbar Data Chat
+[![Build Status](https://travis-ci.org/unchatbar/unchatbar-text-message.svg?branch=master)](https://travis-ci.org/unchatbar/unchatbar-text-message)
 
 Peer to peer chat application using WebRTC technologies
 
@@ -22,10 +22,8 @@ Peer to peer chat application using WebRTC technologies
 * bootstrap-css-only
 * ngstorage
 * lodash
-* ui.router
-* angularjs-dropdown-multiselect
 * unchatbar-connection
-* unchatbar-user
+
 
 ## Get Started
 ```javascript
@@ -39,161 +37,56 @@ configure route see below
 
 ## Configure
 
-* necessary routing configuration
+
+* store message Data in local Storage
 
 >
 ```javascript
-.state('contact', {
-    url: '/contact'
-})
-.state('contact.client', {
-    parent: 'contact',
-    url: '/user/{clientId}'
-})
-.state('contact.group', {
-    parent: 'contact',
-    url: '/group/{groupId}'
-});
-```
-
-* store PhoneBook Data in local Storage
-
->
-```javascript
-PhoneBookProvider.setLocalStorage([TRUE/FALSE]);
+MessageProvider.setLocalStorage([TRUE/FALSE]);
 ```
 
 
 ## API
-* get get Client (by peer id)
+* send message to users from channel
 
 >
 ```javascript
-PhoneBook.getClient([PEERID]);
+Message.send([PEERID],[TEXT-MESAGE],[CHANNEL]);
 ```
 
-* get all clients
+* get all message's from channel
 
 >
 ```javascript
-PhoneBook.getClientMap();
+Message.getMessageFromChannel();
 ```
 
-* get new client
+* get all unread message's
 
 >
 ```javascript
-PhoneBook.addClient([PEERID],[PROFILE]);
-```
-
-* update client
-
->
-```javascript
-PhoneBook.updateClient([PEERID],[Label]);
-```
-
-* remove client
-
->
-```javascript
-PhoneBook.removeClient([PEERID]);
-```
-
-* get a group by groupid
-
->
-```javascript
-PhoneBook.getGroup([GROUPID]);
-```
-
-
-* get all groups
-
->
-```javascript
-PhoneBook.getGroupMap();
-```
-
-
-* copy a group from other client
-
->
-```javascript
-PhoneBook.copyGroupFromPartner([PEERID],[NEWGROUP]);
-```
-
-* add a own new group
-
->
-```javascript
-PhoneBook.addGroup([GROUPNAME]);
-```
-
-
-* update a group
-
->
-```javascript
-PhoneBook.updateGroup([GROUPID],[GROUP]);
-```
-
-* remove a group by groupid
-
->
-```javascript
-PhoneBook.removeGroup([GROUPID]);
-```
-
-* remove a client from group
-
->
-```javascript
-PhoneBook.removeGroupByClient([PEERID],[GROUP]);
+Message.getUnreadMessageMap();
 ```
 
 ## Directive
 
-* list of all client
+* message box (list of all messages in channel and send from)
 
 >
 ```html
-<un-contact-client-list></un-contact-client-list>
+un-data-chat-message-box channel="{{[CHANNELNAME]}}"
+                                  user-map="[USERLIST IN CHANNEL]"></un-data-chat-message-box>
 ```
 
 
-* select client
+* output unread message
 
 >
 ```html
-<un-contact-client-selected></un-contact-client-selected>
+<un-data-chat-unread-message user-map="[USERLIST IN CHANNEL]"></un-data-chat-unread-message>
 ```
-
-
-* list of all groups
-
->
-```html
-<un-contact-group-list></un-contact-group-list>
-```
-
-
-* select group
-
->
-```html
-<un-contact-group-selected></un-contact-group-selected>
-```
-
-
-* add new group
-
->
-```html
-<un-contact-group-add></un-contact-group-add>
-```
-
 
 ## Events
 
-* **PhoneBookUpdate**: phoneBook data was update
+* **MessageUpdateReadMessage**: add new read message
+* **MessageUpdateUnreadMessage**: add new unread message
