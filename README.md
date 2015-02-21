@@ -87,5 +87,5 @@ Message.getUnreadMessageMap();
 
 ## Events
 
-* **MessageUpdateReadMessage**: add new read message
-* **MessageUpdateUnreadMessage**: add new unread message
+* **MessageUpdateReadMessage**: add new read message (contains `unread` : list of unread message )
+* **MessageUpdateUnreadMessage**: add new unread message (contains `unread` : list of unread message )

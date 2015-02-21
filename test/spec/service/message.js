@@ -44,7 +44,7 @@ describe('Serivce: phoneBook', function () {
 
                     return mockWindowDate;
                 });
-                MessageService.send([{id:'user'}], 'testText', 'channelA');
+                MessageService.send([{id: 'user'}], 'testText', 'channelA');
                 messageObject = {
                     channel: 'channelA',
                     text: 'testText',
@@ -66,20 +66,39 @@ describe('Serivce: phoneBook', function () {
                 MessageService.storeMessage('fromPeerId', {channel: 'channelA', text: 'message'});
 
                 expect(MessageService._message.unread).toEqual([
+                    {
+                        channel: 'channelA',
+                        message: {
+                            channel: 'channelA', text: 'message'
+                        },
+                        from: 'fromPeerId'
+                    }
+                ]);
+            });
+
+
+            it('should broadcast `MessageUpdateUnreadMessage` with  `Message._message.unread`', function () {
+                spyOn(rootScope, '$broadcast').and.returnValue(true);
+                MessageService.storeMessage('fromPeerId', {channel: 'channelA', text: 'message'});
+
+                expect(rootScope.$broadcast).toHaveBeenCalledWith('MessageUpdateUnreadMessage',
+                    {unread : [
                         {
-                            channel : 'channelA',
+                            channel: 'channelA',
                             message: {
                                 channel: 'channelA', text: 'message'
                             },
                             from: 'fromPeerId'
                         }
-                    ]);
+                    ]}
+                );
             });
+
         });
 
         describe('getMessageFromChannel', function () {
-            beforeEach(function(){
-                spyOn(rootScope,'$broadcast').and.returnValue(true);
+            beforeEach(function () {
+                spyOn(rootScope, '$broadcast').and.returnValue(true);
             });
             it('should return an empty array, when `Message._message.read` is empty', function () {
                 expect(MessageService.getMessageFromChannel('channelA')).toEqual([]);
@@ -97,38 +116,43 @@ describe('Serivce: phoneBook', function () {
                 beforeEach(function () {
                     MessageService._message.read['channelA'] = ['readData'];
                     MessageService._message.unread = [
-                        {channel : 'channelB' , data : 'testA'},
-                        {channel : 'channelA' , data : 'testB'},
-                        {channel : 'channelB' , data : 'testC'}
+                        {channel: 'channelB', data: 'testA'},
+                        {channel: 'channelA', data: 'testB'},
+                        {channel: 'channelB', data: 'testC'}
                     ];
                 });
                 it('should remove channel from `Message._message.unread` ', function () {
                     MessageService.getMessageFromChannel('channelA');
                     expect(MessageService._message.unread).toEqual([
-                        {channel : 'channelB' , data : 'testA'},
-                        {channel : 'channelB' , data : 'testC'}]);
+                        {channel: 'channelB', data: 'testA'},
+                        {channel: 'channelB', data: 'testC'}]);
                 });
 
                 it('should return merge data from `Message._message.unread` and `Message._message.unread` ', function () {
                     expect(MessageService.getMessageFromChannel('channelA')).toEqual(['readData',
-                        { channel: 'channelA', data: 'testB' }]);
+                        {channel: 'channelA', data: 'testB'}]);
                 });
 
                 it('should broadcast `MessageUpdateReadMessage`', function () {
                     MessageService.getMessageFromChannel('channelA');
 
-                    expect(rootScope.$broadcast).toHaveBeenCalledWith('MessageUpdateReadMessage', {});
+                    expect(rootScope.$broadcast).toHaveBeenCalledWith('MessageUpdateReadMessage', {
+                        unread: [
+                            {channel: 'channelB', data: 'testA'},
+                            {channel: 'channelB', data: 'testC'}
+                        ]
+                    });
                 });
             });
         });
 
-        describe('getUnreadMessageMap' , function(){
-           it('should return `this._message.unread` ' , function(){
-               MessageService._message.unread = ['unreadData'];
+        describe('getUnreadMessageMap', function () {
+            it('should return `this._message.unread` ', function () {
+                MessageService._message.unread = ['unreadData'];
 
-               expect(MessageService.getUnreadMessageMap()).toEqual(['unreadData']);
+                expect(MessageService.getUnreadMessageMap()).toEqual(['unreadData']);
 
-           });
+            });
         });
 
     });
