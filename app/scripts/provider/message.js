@@ -134,7 +134,7 @@ angular.module('unchatbar-data-chat')
                          * broadcast unread list was update
                          *
                          */
-                        $rootScope.$broadcast('MessageUpdateUnreadMessage', {unread : this._message.unread});
+                        $rootScope.$broadcast('MessageUpdateUnreadMessage', {unread : {channel :channel, message: message, from: from}});
                     },
 
                     /**
@@ -167,7 +167,7 @@ angular.module('unchatbar-data-chat')
                              * broadcast read list was update
                              *
                              */
-                            $rootScope.$broadcast('MessageUpdateReadMessage', {unread : this._message.unread});
+                            $rootScope.$broadcast('MessageUpdateReadMessage', {});
                         }
                         return this._message.read[channel];
                     },

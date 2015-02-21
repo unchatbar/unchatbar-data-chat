@@ -82,7 +82,7 @@ describe('Serivce: phoneBook', function () {
                 MessageService.storeMessage('fromPeerId', {channel: 'channelA', text: 'message'});
 
                 expect(rootScope.$broadcast).toHaveBeenCalledWith('MessageUpdateUnreadMessage',
-                    {unread : [
+                    {unread :
                         {
                             channel: 'channelA',
                             message: {
@@ -90,7 +90,7 @@ describe('Serivce: phoneBook', function () {
                             },
                             from: 'fromPeerId'
                         }
-                    ]}
+                    }
                 );
             });
 
@@ -136,12 +136,7 @@ describe('Serivce: phoneBook', function () {
                 it('should broadcast `MessageUpdateReadMessage`', function () {
                     MessageService.getMessageFromChannel('channelA');
 
-                    expect(rootScope.$broadcast).toHaveBeenCalledWith('MessageUpdateReadMessage', {
-                        unread: [
-                            {channel: 'channelB', data: 'testA'},
-                            {channel: 'channelB', data: 'testC'}
-                        ]
-                    });
+                    expect(rootScope.$broadcast).toHaveBeenCalledWith('MessageUpdateReadMessage', {});
                 });
             });
         });
