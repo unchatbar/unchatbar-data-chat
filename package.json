@@ -1,9 +1,9 @@
 {
-  "name": "unchatbar-data-chat",
+  "name": "unchatbar-contact",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git://github.com/unchatbar/unchatbar-phone-book.git"
+    "url": "git://github.com/unchatbar/unchatbar-contact.git"
   },
   "engines": {
     "node": ">=0.10.0"
