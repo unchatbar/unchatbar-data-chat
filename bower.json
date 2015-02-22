@@ -9,7 +9,7 @@
     "ngstorage": "~0.3.0",
     "lodash": "~2.4.1",
     "components-font-awesome": "~4.2.0",
-    "unchatbar-connection" : "https://github.com/unchatbar/unchatbar-connection.git#refaktor"
+    "unchatbar-connection" : "https://github.com/unchatbar/unchatbar-connection.git"
   },
   "main": [
     "app/scripts/app.js",
