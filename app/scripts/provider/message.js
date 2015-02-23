@@ -41,8 +41,8 @@ angular.module('unchatbar-data-chat')
          * store Text message
          *
          */
-        this.$get = ['$rootScope','$window','$log', '$sessionStorage', '$localStorage', 'Broker', 'DataConnection',
-            function ($rootScope,$window,$log, $sessionStorage, $localStorage, Broker, DataConnection) {
+        this.$get = ['$rootScope', '$window', '$log', '$sessionStorage', '$localStorage', 'Broker', 'DataConnection',
+            function ($rootScope, $window, $log, $sessionStorage, $localStorage, Broker, DataConnection) {
 
                 var api = {
                     /**
@@ -92,18 +92,15 @@ angular.module('unchatbar-data-chat')
                         var message = {
                             channel: channel,
                             text: message,
+                            id: this._createUUID(),
                             meta: {
-                                sendStamp :date
+                                sendStamp: date
                             }
                         };
                         _.forEach(users, function (user) {
                             DataConnection.send(user.id, '', 'dataChat', message);
                         });
-                        try {
-                            this.storeMessage(Broker.getPeerId(), message);
-                        } catch(e) {
-                            $log.error(e);
-                        }
+                        this.storeMessage(Broker.getPeerId(), message);
 
                     },
 
@@ -119,10 +116,9 @@ angular.module('unchatbar-data-chat')
                      */
                     storeMessage: function (from, message) {
                         var channel = message.channel || '';
-                        if (channel){
-                            this._message.unread.push({channel :channel, message: message, from: from});
-                        } else {
-                            throw 'could not save message, channel is not defined';
+                        if (channel &&
+                            -1 === _.findIndex(this._message.unread, {'id': message.id})) {
+                            this._message.unread.push({channel: channel,id:message.id, message: message, from: from});
                         }
                         /**
                          * @ngdoc event
@@ -134,7 +130,13 @@ angular.module('unchatbar-data-chat')
                          * broadcast unread list was update
                          *
                          */
-                        $rootScope.$broadcast('MessageUpdateUnreadMessage', {unread : {channel :channel, message: message, from: from}});
+                        $rootScope.$broadcast('MessageUpdateUnreadMessage', {
+                            unread: {
+                                channel: channel,
+                                message: message,
+                                from: from
+                            }
+                        });
                     },
 
                     /**
@@ -150,13 +152,13 @@ angular.module('unchatbar-data-chat')
                     getMessageFromChannel: function (channel) {
                         this._message.read[channel] = this._message.read[channel] || [];
                         var moveMessage = false;
-                        while (-1 !== _.findIndex( this._message.unread, { 'channel': channel })) {
-                            var index = _.findIndex( this._message.unread, { 'channel': channel })
+                        while (-1 !== _.findIndex(this._message.unread, {'channel': channel})) {
+                            var index = _.findIndex(this._message.unread, {'channel': channel})
                             this._message.read[channel].push(this._message.unread[index]);
-                            this._message.unread.splice(index,1);
+                            this._message.unread.splice(index, 1);
                             moveMessage = true;
                         }
-                       if(moveMessage === true) {
+                        if (moveMessage === true) {
                             /**
                              * @ngdoc event
                              * @name MessageUpdateReadMessage
@@ -184,6 +186,24 @@ angular.module('unchatbar-data-chat')
                      */
                     getUnreadMessageMap: function () {
                         return this._message.unread;
+                    },
+
+                    /* @ngdoc methode
+                     * @name _createUUID
+                     * @methodOf unchatbar-data-chat.Message
+                     * @private
+                     * @description
+                     *
+                     * generate a uui id
+                     *
+                     */
+                    _createUUID: function () {
+                        function _p8(s) {
+                            var p = (Math.random().toString(16) + '000000000').substr(2, 8);
+                            return s ? '-' + p.substr(0, 4) + '-' + p.substr(4, 4) : p;
+                        }
+
+                        return _p8() + _p8(true) + _p8(true) + _p8();
                     }
 
                 };

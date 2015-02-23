@@ -38,6 +38,7 @@ describe('Serivce: phoneBook', function () {
                 spyOn(DataConnectionService, 'send').and.returnValue(true);
                 spyOn(MessageService, 'storeMessage').and.returnValue(true);
                 spyOn(BrokerService, 'getPeerId').and.returnValue('ownPeerId');
+                spyOn(MessageService, '_createUUID').and.returnValue('message-uui-id');
                 var oldDate = Date;
                 spyOn(windowService, 'Date').and.callFake(function () {
                     mockWindowDate = new oldDate();
@@ -48,6 +49,7 @@ describe('Serivce: phoneBook', function () {
                 messageObject = {
                     channel: 'channelA',
                     text: 'testText',
+                    id: 'message-uui-id',
                     meta: {
                         sendStamp: mockWindowDate
                     }
@@ -63,11 +65,38 @@ describe('Serivce: phoneBook', function () {
         });
         describe('storeMessage', function () {
             it('should push message to `Message._message.unread`', function () {
-                MessageService.storeMessage('fromPeerId', {channel: 'channelA', text: 'message'});
+                MessageService.storeMessage('fromPeerId', {channel: 'channelA',id:'testId', text: 'message'});
 
                 expect(MessageService._message.unread).toEqual([
                     {
                         channel: 'channelA',
+                        id:'testId',
+                        message: {
+                            channel: 'channelA', text: 'message',id:'testId'
+                        },
+                        from: 'fromPeerId'
+                    }
+                ]);
+            });
+
+            it('should not push message to `Message._message.unread`, when message.id exists in unread', function () {
+                MessageService._message.unread = [
+                    {
+                        channel: 'channelA',
+                        id:'testId',
+                        message: {
+                            channel: 'channelA', text: 'message'
+                        },
+                        from: 'fromPeerId'
+                    }
+                ];
+
+                MessageService.storeMessage('fromPeerId', {channel: 'channelA',id:'testId', text: 'message'});
+
+                expect(MessageService._message.unread).toEqual([
+                    {
+                        channel: 'channelA',
+                        id:'testId',
                         message: {
                             channel: 'channelA', text: 'message'
                         },
@@ -82,8 +111,8 @@ describe('Serivce: phoneBook', function () {
                 MessageService.storeMessage('fromPeerId', {channel: 'channelA', text: 'message'});
 
                 expect(rootScope.$broadcast).toHaveBeenCalledWith('MessageUpdateUnreadMessage',
-                    {unread :
-                        {
+                    {
+                        unread: {
                             channel: 'channelA',
                             message: {
                                 channel: 'channelA', text: 'message'

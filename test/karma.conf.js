@@ -22,9 +22,9 @@ module.exports = function (config) {
             'bower_components/es5-shim/es5-shim.js',
             'bower_components/angular/angular.js',
             'bower_components/json3/lib/json3.js',
-            'bower_components/peerjs/peer.js',
             'bower_components/ngstorage/ngStorage.js',
             'bower_components/lodash/dist/lodash.compat.js',
+            'bower_components/peerjs/peer.js',
             'bower_components/unchatbar-user/app/scripts/app.js',
             'bower_components/unchatbar-user/app/scripts/run.js',
             'bower_components/unchatbar-user/app/scripts/template.js',
@@ -39,6 +39,7 @@ module.exports = function (config) {
             'bower_components/unchatbar-connection/app/scripts/provider/data-connection.js',
             'bower_components/unchatbar-connection/app/scripts/service/peer.js',
             'bower_components/unchatbar-connection/app/scripts/directive/dialer.js',
+            'bower_components/unchatbar-connection/app/scripts/directive/login.js',
             'bower_components/unchatbar-connection/app/scripts/directive/peerId.js',
             'bower_components/unchatbar-connection/app/scripts/controller/dialer.js',
             // endbower
