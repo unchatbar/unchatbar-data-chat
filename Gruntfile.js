@@ -446,6 +446,24 @@ module.exports = function (grunt) {
                     module : '<%= yeoman.appName %>'
                 }
             }
+        },
+        bump: {
+            options: {
+                files: ['package.json','bower.json'],
+                updateConfigs: [],
+                commit: true,
+                commitMessage: 'Release v%VERSION%',
+                commitFiles: ['-a'],
+                createTag: true,
+                tagName: '%VERSION%',
+                tagMessage: 'Version %VERSION%',
+                push: true,
+                pushTo: 'origin',
+                gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
+                globalReplace: false,
+                prereleaseName: false,
+                regExp: false
+            }
         }
 
     });
@@ -485,6 +503,11 @@ module.exports = function (grunt) {
         'karma'
     ]);
     grunt.registerTask('doku', ['ngdocs']);
+
+    grunt.registerTask('tag', 'create new tag', function (version) {
+        grunt.task.run([ 'ngtemplates:dev','bump:' + version]);
+    });
+
     grunt.registerTask('build', [
         'clean:dist',
         'ngtemplates:dist',

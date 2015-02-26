@@ -8,9 +8,8 @@
     <meta name="viewport" content="width=device-width">
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower_components/unchatbar-user/app/styles/custom.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css"/>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -19,8 +18,56 @@
     <!-- endbuild -->
 </head>
 <body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
 
+            <a href="#" class="navbar-brand">unchatbar Data chat</a>
+        </div>
+    </div>
+</nav>
+<div class="container" ng-controller="unDataChatDemo">
+    <div class="jumbotron">
+        <div ng-repeat="(channel,userMap) in channelList">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Channel:{{channel}}</div>
+                <div class="panel-body">
+                    <div ng-repeat="user in userMap">
+                        <div>
+                        <img class="profile-image" ng-src="{{user.image}}" width="80">
+                        {{user.label}}
+                        </div><br />
+                        <button class="btn btn-default" data-ng-click="join(user.id)">select user</button>
+                        <hr ng-hide="$last">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-ng-show="ownPeerId" data-ng-init="activeChannel='GruppeA'">
+        <div class="page-header">
+            {{userMap[ownPeerId].label}}
+        </div>
+        <ul class="nav nav-tabs">
+            <li role="presentation" data-ng-repeat="(channel,userMap) in channelList"
+                data-ng-class="{'active' : channel === activeChannel}">
 
+                <a href="javascript:void(0)" data-ng-click="setActiveChannel(channel)">{{channel}}</a>
+            </li>
+            <li>
+                <un-data-chat-unread-message data-user-map="userMap"></un-data-chat-unread-message>
+            </li>
+        </ul>
+        <div ng-show="channelList[activeChannel][ownPeerId]">
+            <un-data-chat-message-box data-channel="{{activeChannel}}"
+                                      data-user-map="channelList[activeChannel]"></un-data-chat-message-box>
+        </div>
+        <div ng-show="!channelList[activeChannel][ownPeerId]">
+            you are no member of group {{activeChannel}}
+        </div>
+    </div>
+</div>
+<!--
 <un-connection-peer-id></un-connection-peer-id>
 
 <div class="container">
@@ -62,6 +109,7 @@
                                   data-user-map="userList[activeChannel.name]"></un-data-chat-message-box>
     </div>
 </div>
+-->
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
@@ -82,13 +130,6 @@
 <script src="bower_components/ngstorage/ngStorage.js"></script>
 <script src="bower_components/lodash/dist/lodash.compat.js"></script>
 <script src="bower_components/peerjs/peer.js"></script>
-<script src="bower_components/unchatbar-user/app/scripts/app.js"></script>
-<script src="bower_components/unchatbar-user/app/scripts/run.js"></script>
-<script src="bower_components/unchatbar-user/app/scripts/template.js"></script>
-<script src="bower_components/unchatbar-user/app/scripts/provider/profile.js"></script>
-<script src="bower_components/unchatbar-user/app/scripts/controller/profile.js"></script>
-<script src="bower_components/unchatbar-user/app/scripts/directive/profile-admin.js"></script>
-<script src="bower_components/unchatbar-user/app/scripts/directive/profile.js"></script>
 <script src="bower_components/unchatbar-connection/app/scripts/app.js"></script>
 <script src="bower_components/unchatbar-connection/app/scripts/run.js"></script>
 <script src="bower_components/unchatbar-connection/app/scripts/template.js"></script>
@@ -123,42 +164,90 @@
 
 <script>
     angular.module('unchatbar-data-chat').run(function (Broker) {
-        Broker.connectServer();
+        //Broker.connectServer();
     });
 
     angular.module('unchatbar-data-chat').controller('unDataChatDemo',
             function ($scope, Broker) {
-                var ownPeerId = Broker.getPeerId();
-                $scope.user = {};
-                $scope.channelList = [{name: 'channelA'}, {name: 'channelB'}];
-                $scope.activeChannel = $scope.channelList[0];
-                $scope.userList = {
-                    channelA: {},
-                    channelB: {}
-                };
-                $scope.userList['channelA'][ownPeerId] = {
-                    id: ownPeerId,
-                    label: 'mySelf'
-                };
-                $scope.userList['channelB'][ownPeerId] = {
-                    id: ownPeerId,
-                    label: 'mySelf'
-                };
-                $scope.userListAll = {};
+                $scope.userMap = {
+                    'admin': {
+                        id: 'admin',
+                        label: 'Der Admin',
+                        image: '/images/admin.jpg'
 
+                    },
+                    'mia': {
+                        id: 'mia',
+                        label: 'Mia',
+                        image: '/images/support.jpg'
 
-                $scope.addUser = function () {
-                    var userId = $scope.user.id;
-                    $scope.userList[$scope.activeChannel.name][userId] = $scope.user;
-                    $scope.user = {};
-                    mergeUserList();
+                    },
+                    'meier': {
+                        id: 'meier',
+                        label: 'Herr Meier',
+                        image: '/images/sales.jpg'
+
+                    },
+                    'girlNextDoor': {
+                        id: 'girlNextDoor',
+                        label: 'girl next door',
+                        image: '/images/girl-next-door.jpg'
+
+                    }
+                };
+
+                $scope.channelList = {
+                    GruppeA: {admin: $scope.userMap.admin, mias: $scope.userMap.mia, meier: $scope.userMap.meier},
+                    privateChat: {meier: $scope.userMap.meier, girlNextDoor: $scope.userMap.girlNextDoor}
+                };
+
+                $scope.join = function (id) {
+                    Broker.setPeerId(id);
+                    Broker.connectServer();
+                };
+                $scope.$on('BrokerPeerOpen', function (event, data) {
+                    $scope.ownPeerId = Broker.getPeerIdFromStorage();
+                });
+
+                $scope.setActiveChannel = function (channel) {
+                    $scope.activeChannel = channel;
                 }
 
-                function mergeUserList() {
-                    $scope.userListAll = _.merge($scope.userList.channelA, $scope.userList.channelB);
+                $scope.ownPeerId = Broker.getPeerIdFromStorage();
+                if ($scope.ownPeerId) {
+                    $scope.join($scope.ownPeerId);
                 }
+                //var ownPeerId = Broker.getPeerId();
+                //$scope.user = {};
+                //$scope.channelList = [{name: 'channelA'}, {name: 'channelB'}];
+                //$scope.activeChannel = $scope.channelList[0];
+                //$scope.userList = {
+                //    channelA: {},
+                //    channelB: {}
+                //};
+                /*$scope.userList['channelA'][ownPeerId] = {
+                 id: ownPeerId,
+                 label: 'mySelf'
+                 };
+                 $scope.userList['channelB'][ownPeerId] = {
+                 id: ownPeerId,
+                 label: 'mySelf'
+                 };
+                 $scope.userListAll = {};
 
-                mergeUserList();
+
+                 $scope.addUser = function () {
+                 var userId = $scope.user.id;
+                 $scope.userList[$scope.activeChannel.name][userId] = $scope.user;
+                 $scope.user = {};
+                 mergeUserList();
+                 }
+
+                 function mergeUserList() {
+                 $scope.userListAll = _.merge($scope.userList.channelA, $scope.userList.channelB);
+                 }
+
+                 mergeUserList();*/
             });
 </script>
 </body>

@@ -1,6 +1,6 @@
 {
   "name": "unchatbar-data-chat",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/unchatbar/unchatbar-data-chat.git"
@@ -51,6 +51,7 @@
     "time-grunt": "^0.3.1"
   },
   "devDependencies": {
+    "grunt-bump": "^0.3.0",
     "karma": "^0.12.28",
     "karma-coverage": "^0.2.7",
     "karma-jasmine": "^0.3.5",
