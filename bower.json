@@ -1,6 +1,6 @@
 {
   "name": "unchatbar-data-chat",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
     "angular": "^1.3.0",
     "json3": "^3.3.0",
@@ -18,7 +18,8 @@
     "app/scripts/provider/*.js",
     "app/scripts/service/*.js",
     "app/scripts/directive/*.js",
-    "app/scripts/controller/*.js"
+    "app/scripts/controller/*.js",
+    "app/styles/custom.css"
   ],
   "devDependencies": {
     "angular-mocks": "~1.3.0",
