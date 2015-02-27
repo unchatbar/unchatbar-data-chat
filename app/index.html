@@ -28,21 +28,24 @@
 </nav>
 <div class="container" ng-controller="unDataChatDemo">
     <div class="jumbotron">
-        <div ng-repeat="(channel,userMap) in channelList">
-            <div class="panel panel-primary">
+        <div ng-repeat="(channel,userMap) in channelList" class="container-fluid pull-left">
+            <div class="panel panel-primary ">
                 <div class="panel-heading">Channel:{{channel}}</div>
                 <div class="panel-body">
-                    <div ng-repeat="user in userMap">
-                        <div>
-                        <img class="profile-image" ng-src="{{user.image}}" width="80">
+                    <div ng-repeat="user in userMap" class="pull-left">
+                        <div style="height: 100px;">
+                            <img class="profile-image" ng-src="{{user.image}}" width="80">
+
+                        </div>
                         {{user.label}}
-                        </div><br />
+                        <br/>
                         <button class="btn btn-default" data-ng-click="join(user.id)">select user</button>
-                        <hr ng-hide="$last">
                     </div>
+
                 </div>
             </div>
         </div>
+        <div class="clearfix"></div>
     </div>
     <div data-ng-show="ownPeerId" data-ng-init="activeChannel='GruppeA'">
         <div class="page-header">
@@ -58,6 +61,8 @@
                 <un-data-chat-unread-message data-user-map="userMap"></un-data-chat-unread-message>
             </li>
         </ul>
+        <br/>
+
         <div ng-show="channelList[activeChannel][ownPeerId]">
             <un-data-chat-message-box data-channel="{{activeChannel}}"
                                       data-user-map="channelList[activeChannel]"></un-data-chat-message-box>
@@ -67,49 +72,7 @@
         </div>
     </div>
 </div>
-<!--
-<un-connection-peer-id></un-connection-peer-id>
 
-<div class="container">
-    <h1>DEMO (Demo Controller : unDataChatDemo)</h1>
-
-    <div ng-controller="unDataChatDemo">
-        <div class="row">
-            <div class="col-md-5">
-                <select ng-options="item.name for item in channelList" ng-model="activeChannel"></select>
-
-                <div ng-repeat="user in userList[activeChannel.name]">
-                    <b>{{user.id}}</b>/{{user.label}} <br/>
-                </div>
-            </div>
-            <div class="col-md-7">
-                Add user to Channel:
-                <form>
-                    <div class="form-group">
-                        <label for="clientPeer">Client Peer Id</label>
-                        <input type="input" data-ng-model="user.id" class="form-control" id="clientPeer"
-                               placeholder="Enter client peer id">
-                    </div>
-                    <div class="form-group">
-                        <label for="clientName">label</label>
-                        <input type="input" data-ng-model="user.label" class="form-control" id="clientName"
-                               placeholder="Enter client name">
-                    </div>
-                    <button type="submit" class="btn btn-default" ng-click="addUser()">add</button>
-                </form>
-            </div>
-        </div>
-
-
-        <h2>unread Message Box</h2>
-        <un-data-chat-unread-message data-user-map="userListAll"></un-data-chat-unread-message>
-        <hr>
-        <h2>Message Box</h2>
-        <un-data-chat-message-box data-channel="{{activeChannel.name}}"
-                                  data-user-map="userList[activeChannel.name]"></un-data-chat-message-box>
-    </div>
-</div>
--->
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
@@ -140,6 +103,7 @@
 <script src="bower_components/unchatbar-connection/app/scripts/directive/login.js"></script>
 <script src="bower_components/unchatbar-connection/app/scripts/directive/peerId.js"></script>
 <script src="bower_components/unchatbar-connection/app/scripts/controller/dialer.js"></script>
+<script src="bower_components/angular-scroll-glue/src/scrollglue.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -197,8 +161,15 @@
                 };
 
                 $scope.channelList = {
-                    GruppeA: {admin: $scope.userMap.admin, mias: $scope.userMap.mia, meier: $scope.userMap.meier},
-                    privateChat: {meier: $scope.userMap.meier, girlNextDoor: $scope.userMap.girlNextDoor}
+                    GruppeA: {
+                        admin: $scope.userMap.admin,
+                        mia: $scope.userMap.mia,
+                        meier: $scope.userMap.meier
+                    },
+                    privateChat: {
+                        meier: $scope.userMap.meier,
+                        girlNextDoor: $scope.userMap.girlNextDoor
+                    }
                 };
 
                 $scope.join = function (id) {

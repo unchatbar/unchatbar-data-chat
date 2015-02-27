@@ -11,8 +11,8 @@
  * text message
  *
  */
-angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope','Message',
-    function ($scope, Message) {
+angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope','$filter','Message',
+    function ($scope,$filter, Message) {
 
         /**
          * @ngdoc property
@@ -78,6 +78,20 @@ angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope','Me
         $scope.getUnreadMessageList = function () {
             $scope.unreadMessageList = Message.getUnreadMessageMap();
         };
+
+        /**
+         * @ngdoc methode
+         * @name getFormateDate
+         * @methodOf unchatbar-data-chat.controller:unDataChatText
+         * @description
+         *
+         * get a formate date string
+         *
+         */
+        $scope.getFormateDate = function(date){
+            return new Date(date).toISOString();
+
+        }
 
     }
 ]);

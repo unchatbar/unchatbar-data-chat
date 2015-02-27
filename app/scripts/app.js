@@ -11,6 +11,7 @@
 angular.module('unchatbar-data-chat', [
     'constants',
     'ngStorage',
+    'luegg.directives',
     'unchatbar-connection'
 
 ]);

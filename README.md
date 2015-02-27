@@ -23,6 +23,7 @@ data chat
 * ngstorage
 * lodash
 * unchatbar-connection
+* luegg.directives
 
 
 ## Get Started
