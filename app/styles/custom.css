@@ -19,7 +19,6 @@ img.profile-image {
  }
 .new-message-box{
     position:absolute;
-    left: -100px;
     top: 30px;
     z-index:50;
 }
