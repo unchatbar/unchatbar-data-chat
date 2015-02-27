@@ -48,27 +48,35 @@
         <div class="clearfix"></div>
     </div>
     <div data-ng-show="ownPeerId" data-ng-init="activeChannel='GruppeA'">
-        <div class="page-header">
-            {{userMap[ownPeerId].label}}
-        </div>
-        <ul class="nav nav-tabs">
-            <li role="presentation" data-ng-repeat="(channel,userMap) in channelList"
-                data-ng-class="{'active' : channel === activeChannel}">
+        <div class="row">
+            <div class="col-sx-12">
+                <div class="page-header">
+                    {{userMap[ownPeerId].label}}
+                </div>
+                <ul class="nav nav-tabs">
+                    <li role="presentation" data-ng-repeat="(channel,userMap) in channelList"
+                        data-ng-class="{'active' : channel === activeChannel}">
 
-                <a href="javascript:void(0)" data-ng-click="setActiveChannel(channel)">{{channel}}</a>
-            </li>
-            <li>
-                <un-data-chat-unread-message data-user-map="userMap"></un-data-chat-unread-message>
-            </li>
-        </ul>
+                        <a href="javascript:void(0)" data-ng-click="setActiveChannel(channel)">{{channel}}</a>
+                    </li>
+                    <li>
+                        <un-data-chat-unread-message data-user-map="userMap"></un-data-chat-unread-message>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <br/>
 
-        <div ng-show="channelList[activeChannel][ownPeerId]">
-            <un-data-chat-message-box data-channel="{{activeChannel}}"
-                                      data-user-map="channelList[activeChannel]"></un-data-chat-message-box>
-        </div>
-        <div ng-show="!channelList[activeChannel][ownPeerId]">
-            you are no member of group {{activeChannel}}
+        <div class="row">
+            <div class="col-sx-12">
+                <div ng-show="channelList[activeChannel][ownPeerId]">
+                    <un-data-chat-message-box data-channel="{{activeChannel}}"
+                                              data-user-map="channelList[activeChannel]"></un-data-chat-message-box>
+                </div>
+                <div ng-show="!channelList[activeChannel][ownPeerId]">
+                    you are no member of group {{activeChannel}}
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -188,37 +196,6 @@
                 if ($scope.ownPeerId) {
                     $scope.join($scope.ownPeerId);
                 }
-                //var ownPeerId = Broker.getPeerId();
-                //$scope.user = {};
-                //$scope.channelList = [{name: 'channelA'}, {name: 'channelB'}];
-                //$scope.activeChannel = $scope.channelList[0];
-                //$scope.userList = {
-                //    channelA: {},
-                //    channelB: {}
-                //};
-                /*$scope.userList['channelA'][ownPeerId] = {
-                 id: ownPeerId,
-                 label: 'mySelf'
-                 };
-                 $scope.userList['channelB'][ownPeerId] = {
-                 id: ownPeerId,
-                 label: 'mySelf'
-                 };
-                 $scope.userListAll = {};
-
-
-                 $scope.addUser = function () {
-                 var userId = $scope.user.id;
-                 $scope.userList[$scope.activeChannel.name][userId] = $scope.user;
-                 $scope.user = {};
-                 mergeUserList();
-                 }
-
-                 function mergeUserList() {
-                 $scope.userListAll = _.merge($scope.userList.channelA, $scope.userList.channelB);
-                 }
-
-                 mergeUserList();*/
             });
 </script>
 </body>

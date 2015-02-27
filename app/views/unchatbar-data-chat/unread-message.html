@@ -1,7 +1,34 @@
-<div>
-    <b>unread Message ({{unreadMessageList.length || 0}})</b>
-    <div data-ng-repeat="message in unreadMessageList">
-        From:{{userMap[message.from].label}} <br>
-        Message:{{message.message.text}}
+<div data-ng-init="showMessage=false">
+    <div class="notification-icon" data-ng-click="showMessage=!showMessage">
+        <span class="glyphicon glyphicon-envelope"></span>
+        <span class="badge">{{unreadMessageList.length || 0}}</span>
+    </div>
+    <div class="panel panel-primary new-message-box" data-ng-show="showMessage">
+        <div class="panel-body" scroll-glue>
+            <ul class="chat" >
+                <li class="left clearfix" data-ng-show="unreadMessageList.length === 0">
+                    no new Messages
+                </li>
+                <li class="left clearfix" data-ng-repeat="message in unreadMessageList">
+                            <span class="chat-img pull-left">
+                            <img class="profile-image" ng-src="{{userMap[message.from].image}}" width="80">
+                        </span>
+
+                    <div class="chat-body clearfix">
+                        <div class="header">
+                            <strong class="primary-font">{{userMap[message.from].label}}</strong>
+                            <small class="pull-right text-muted">
+                                <span class="glyphicon glyphicon-time"></span>
+                                {{getFormateDate(message.message.meta.sendStamp) | date:'/dd/MM/yyyy @ H:mm a' :'GMT'}}
+                            </small>
+
+                        </div>
+                        <p>
+                            {{message.message.text}}
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
