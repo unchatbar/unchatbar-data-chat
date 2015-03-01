@@ -1,3 +1,7 @@
+## 0.0.4
+Bugfix:
+* no container class for message box
+
 ## 0.0.3
 Bugfix:
 * position of unread message box

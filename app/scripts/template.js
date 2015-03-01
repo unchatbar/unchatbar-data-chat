@@ -2,7 +2,7 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
   'use strict';
 
   $templateCache.put('views/unchatbar-data-chat/message-box.html',
-    "<div class=\"container\">\n" +
+    "<div >\n" +
     "\n" +
     "    <div class=\"panel panel-primary\">\n" +
     "        <div class=\"panel-body\" scroll-glue>\n" +
