@@ -30,7 +30,7 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "        </div>\n" +
     "        <div class=\"panel-footer\">\n" +
     "            <div class=\"input-group\">\n" +
-    "                <input id=\"btn-input\" type=\"text\" data-ng-model=\"text\" class=\"form-control input-sm\"\n" +
+    "                <textarea id=\"btn-input\" type=\"text\" data-ng-model=\"text\" class=\"form-control input-sm\"\n" +
     "                       placeholder=\"Type your message here...\"/>\n" +
     "                        <span class=\"input-group-btn\">\n" +
     "                            <button class=\"btn btn-warning btn-sm\" id=\"btn-chat\"\n" +
