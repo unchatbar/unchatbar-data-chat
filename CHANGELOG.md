@@ -1,3 +1,7 @@
+## 0.0.5
+Bugfix:
+* change input filed for text message
+
 ## 0.0.4
 Bugfix:
 * no container class for message box
