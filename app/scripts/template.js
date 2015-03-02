@@ -17,7 +17,7 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "                            <strong class=\"primary-font\">{{userMap[message.from].label}}</strong>\n" +
     "                            <small class=\"pull-right text-muted\">\n" +
     "                                <span class=\"glyphicon glyphicon-time\"></span>\n" +
-    "                                {{getFormateDate(message.message.meta.sendStamp) | date:'/dd/MM/yyyy @ H:mm a' :'GMT'}}\n" +
+    "                                {{getFormateDate(message.message.meta.sendStamp) | date:'/dd/MM/yyyy @ H:mm' :'GMT'}}\n" +
     "                            </small>\n" +
     "\n" +
     "                        </div>\n" +
@@ -68,7 +68,7 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "                            <strong class=\"primary-font\">{{userMap[message.from].label}}</strong>\n" +
     "                            <small class=\"pull-right text-muted\">\n" +
     "                                <span class=\"glyphicon glyphicon-time\"></span>\n" +
-    "                                {{getFormateDate(message.message.meta.sendStamp) | date:'/dd/MM/yyyy @ H:mm a' :'GMT'}}\n" +
+    "                                {{getFormateDate(message.message.meta.sendStamp) | date:'/dd/MM/yyyy @ H:mm' :'GMT'}}\n" +
     "                            </small>\n" +
     "\n" +
     "                        </div>\n" +
