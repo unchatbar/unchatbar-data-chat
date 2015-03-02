@@ -48,7 +48,7 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
 
   $templateCache.put('views/unchatbar-data-chat/unread-message.html',
     "<div data-ng-init=\"showMessage=false\">\n" +
-    "    <div class=\"notification-icon fa-3x\" data-ng-click=\"showMessage=!showMessage\">\n" +
+    "    <div class=\"notification-icon fa-2x\" data-ng-click=\"showMessage=!showMessage\">\n" +
     "        <span class=\"glyphicon glyphicon-envelope\"></span>\n" +
     "        <span class=\"badge\">{{unreadMessageList.length || 0}}</span>\n" +
     "    </div>\n" +
