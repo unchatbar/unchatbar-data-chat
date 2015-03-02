@@ -1,5 +1,5 @@
 <div data-ng-init="showMessage=false">
-    <div class="notification-icon fa-3x" data-ng-click="showMessage=!showMessage">
+    <div class="notification-icon fa-2x" data-ng-click="showMessage=!showMessage">
         <span class="glyphicon glyphicon-envelope"></span>
         <span class="badge">{{unreadMessageList.length || 0}}</span>
     </div>
@@ -19,7 +19,7 @@
                             <strong class="primary-font">{{userMap[message.from].label}}</strong>
                             <small class="pull-right text-muted">
                                 <span class="glyphicon glyphicon-time"></span>
-                                {{getFormateDate(message.message.meta.sendStamp) | date:'/dd/MM/yyyy @ H:mm a' :'GMT'}}
+                                {{getFormateDate(message.message.meta.sendStamp) | date:'/dd/MM/yyyy @ H:mm' :'GMT'}}
                             </small>
 
                         </div>

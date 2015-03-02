@@ -17,7 +17,7 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "                            <strong class=\"primary-font\">{{userMap[message.from].label}}</strong>\n" +
     "                            <small class=\"pull-right text-muted\">\n" +
     "                                <span class=\"glyphicon glyphicon-time\"></span>\n" +
-    "                                {{getFormateDate(message.message.meta.sendStamp) | date:'/dd/MM/yyyy @ H:mm a' :'GMT'}}\n" +
+    "                                {{getFormateDate(message.message.meta.sendStamp) | date:'/dd/MM/yyyy @ H:mm' :'GMT'}}\n" +
     "                            </small>\n" +
     "\n" +
     "                        </div>\n" +
@@ -30,8 +30,8 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "        </div>\n" +
     "        <div class=\"panel-footer\">\n" +
     "            <div class=\"input-group\">\n" +
-    "                <input id=\"btn-input\" type=\"text\" data-ng-model=\"text\" class=\"form-control input-sm\"\n" +
-    "                       placeholder=\"Type your message here...\"/>\n" +
+    "                <textarea id=\"btn-input\" cols=\"2\" type=\"text\" data-ng-model=\"text\" class=\"form-control input-sm\"\n" +
+    "                       placeholder=\"Type your message here...\"></textarea>\n" +
     "                        <span class=\"input-group-btn\">\n" +
     "                            <button class=\"btn btn-warning btn-sm\" id=\"btn-chat\"\n" +
     "                                    data-ng-click=\"sendTextMessage(userMap,channel);text='';\">\n" +
@@ -48,7 +48,7 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
 
   $templateCache.put('views/unchatbar-data-chat/unread-message.html',
     "<div data-ng-init=\"showMessage=false\">\n" +
-    "    <div class=\"notification-icon fa-3x\" data-ng-click=\"showMessage=!showMessage\">\n" +
+    "    <div class=\"notification-icon fa-2x\" data-ng-click=\"showMessage=!showMessage\">\n" +
     "        <span class=\"glyphicon glyphicon-envelope\"></span>\n" +
     "        <span class=\"badge\">{{unreadMessageList.length || 0}}</span>\n" +
     "    </div>\n" +
@@ -68,7 +68,7 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "                            <strong class=\"primary-font\">{{userMap[message.from].label}}</strong>\n" +
     "                            <small class=\"pull-right text-muted\">\n" +
     "                                <span class=\"glyphicon glyphicon-time\"></span>\n" +
-    "                                {{getFormateDate(message.message.meta.sendStamp) | date:'/dd/MM/yyyy @ H:mm a' :'GMT'}}\n" +
+    "                                {{getFormateDate(message.message.meta.sendStamp) | date:'/dd/MM/yyyy @ H:mm' :'GMT'}}\n" +
     "                            </small>\n" +
     "\n" +
     "                        </div>\n" +
