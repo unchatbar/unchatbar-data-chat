@@ -25,6 +25,7 @@ module.exports = function (config) {
             'bower_components/ngstorage/ngStorage.js',
             'bower_components/lodash/dist/lodash.compat.js',
             'bower_components/peerjs/peer.js',
+            'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
             'bower_components/unchatbar-connection/app/scripts/app.js',
             'bower_components/unchatbar-connection/app/scripts/run.js',
             'bower_components/unchatbar-connection/app/scripts/template.js',
@@ -35,6 +36,7 @@ module.exports = function (config) {
             'bower_components/unchatbar-connection/app/scripts/directive/login.js',
             'bower_components/unchatbar-connection/app/scripts/directive/peerId.js',
             'bower_components/unchatbar-connection/app/scripts/controller/dialer.js',
+            'bower_components/unchatbar-connection/app/scripts/controller/model-password.js',
             'bower_components/angular-scroll-glue/src/scrollglue.js',
             // endbower
             'bower_components/angular-mocks/angular-mocks.js',

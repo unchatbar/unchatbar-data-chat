@@ -398,6 +398,10 @@ module.exports = function (grunt) {
                 'copy:styles',
                 'imagemin',
                 'svgmin'
+            ],
+            dev :[
+                'watch',
+                'nodemon'
             ]
         },
 
@@ -464,6 +468,11 @@ module.exports = function (grunt) {
                 prereleaseName: false,
                 regExp: false
             }
+        },
+        nodemon: {
+            dev: {
+                script: 'node_modules/unchatbar-server/app.js'
+            }
         }
 
     });
@@ -483,7 +492,7 @@ module.exports = function (grunt) {
             'autoprefixer',
             'ngdocs',
             'connect:livereload',
-            'watch'
+            'concurrent:dev'
         ]);
     });
 

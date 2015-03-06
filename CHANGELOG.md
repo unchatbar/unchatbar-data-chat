@@ -1,3 +1,7 @@
+## 0.0.6
+Feature:
+* add local server for development
+
 ## 0.0.5
 Bugfix:
 * change input filed for text message

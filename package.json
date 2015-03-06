@@ -1,6 +1,6 @@
 {
   "name": "unchatbar-data-chat",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "repository": {
     "type": "git",
     "url": "git://github.com/unchatbar/unchatbar-data-chat.git"
@@ -48,11 +48,13 @@
     "karma-ng-html2js-preprocessor": "^0.1.2",
     "load-grunt-tasks": "^0.4.0",
     "morgan": "^1.5.0",
-    "time-grunt": "^0.3.1"
+    "time-grunt": "^0.3.1",
+    "unchatbar-server": "git://github.com/unchatbar/unchatbar-server.git"
   },
   "devDependencies": {
     "grunt-bump": "^0.3.0",
     "karma": "^0.12.28",
+    "grunt-nodemon": "^0.4.0",
     "karma-coverage": "^0.2.7",
     "karma-jasmine": "^0.3.5",
     "karma-phantomjs-launcher": "^0.1.4"
