@@ -12,6 +12,7 @@ angular.module('unchatbar-data-chat', [
     'constants',
     'ngStorage',
     'luegg.directives',
+    'ngEmoticons',
     'unchatbar-connection'
 
 ]);

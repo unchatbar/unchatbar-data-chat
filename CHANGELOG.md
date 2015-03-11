@@ -1,6 +1,9 @@
 ## 0.0.7
 Feature:
 * send message by enter event
+* fix receive double message
+* add emoticons
+
 
 ## 0.0.6
 Feature:

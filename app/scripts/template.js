@@ -21,17 +21,17 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "                            </small>\n" +
     "\n" +
     "                        </div>\n" +
-    "                        <p>\n" +
-    "                            {{message.message.text}}\n" +
+    "                        <p ng-bind-html=\"message.message.text | emoticons\">\n" +
+    "                            \n" +
     "                        </p>\n" +
     "                    </div>\n" +
     "                </li>\n" +
     "            </ul>\n" +
     "        </div>\n" +
     "        <div class=\"panel-footer\">\n" +
-    "            <form data-ng-submit=\"{13:'sendTextMessage(userMap,channel);text='';'}\">\n" +
+    "            <form>\n" +
     "                <div class=\"input-group\">\n" +
-    "                <textarea enterSubmit id=\"btn-input\" cols=\"2\" type=\"text\" data-ng-model=\"text\" class=\"form-control input-sm\"\n" +
+    "                <textarea enter-submit=\"sendTextMessage(userMap,channel);text='';\" id=\"btn-input\" cols=\"2\" type=\"text\" data-ng-model=\"text\" class=\"form-control input-sm\"\n" +
     "                          placeholder=\"Type your message here...\"></textarea>\n" +
     "                        <span class=\"input-group-btn\">\n" +
     "                            <button class=\"btn btn-warning btn-sm\" id=\"btn-chat\"\n" +

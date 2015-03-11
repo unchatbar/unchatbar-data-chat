@@ -17,9 +17,7 @@
                             </small>
 
                         </div>
-                        <p>
-                            {{message.message.text}}
-                        </p>
+                        <p ng-bind-html="message.message.text | emoticons"></p>
                     </div>
                 </li>
             </ul>
