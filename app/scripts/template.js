@@ -21,9 +21,7 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "                            </small>\n" +
     "\n" +
     "                        </div>\n" +
-    "                        <p ng-bind-html=\"message.message.text | emoticons\">\n" +
-    "                            \n" +
-    "                        </p>\n" +
+    "                        <p ng-bind-html=\"message.message.text | emoticons\"></p>\n" +
     "                    </div>\n" +
     "                </li>\n" +
     "            </ul>\n" +
