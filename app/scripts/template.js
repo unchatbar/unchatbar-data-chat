@@ -2,11 +2,11 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
   'use strict';
 
   $templateCache.put('views/unchatbar-data-chat/message-box.html',
-    "<div >\n" +
+    "<div>\n" +
     "\n" +
     "    <div class=\"panel panel-primary\">\n" +
     "        <div class=\"panel-body\" scroll-glue>\n" +
-    "            <ul class=\"chat\" >\n" +
+    "            <ul class=\"chat\">\n" +
     "                <li class=\"left clearfix\" data-ng-repeat=\"message in messageList\">\n" +
     "                            <span class=\"chat-img pull-left\">\n" +
     "                            <img class=\"profile-image\" ng-src=\"{{userMap[message.from].image}}\" width=\"80\">\n" +
@@ -29,16 +29,18 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "            </ul>\n" +
     "        </div>\n" +
     "        <div class=\"panel-footer\">\n" +
-    "            <div class=\"input-group\">\n" +
-    "                <textarea id=\"btn-input\" cols=\"2\" type=\"text\" data-ng-model=\"text\" class=\"form-control input-sm\"\n" +
-    "                       placeholder=\"Type your message here...\"></textarea>\n" +
+    "            <form data-ng-submit=\"{13:'sendTextMessage(userMap,channel);text='';'}\">\n" +
+    "                <div class=\"input-group\">\n" +
+    "                <textarea enterSubmit id=\"btn-input\" cols=\"2\" type=\"text\" data-ng-model=\"text\" class=\"form-control input-sm\"\n" +
+    "                          placeholder=\"Type your message here...\"></textarea>\n" +
     "                        <span class=\"input-group-btn\">\n" +
     "                            <button class=\"btn btn-warning btn-sm\" id=\"btn-chat\"\n" +
     "                                    data-ng-click=\"sendTextMessage(userMap,channel);text='';\">\n" +
     "                                Send\n" +
     "                            </button>\n" +
     "                        </span>\n" +
-    "            </div>\n" +
+    "                </div>\n" +
+    "            </form>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +

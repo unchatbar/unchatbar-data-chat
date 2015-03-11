@@ -116,8 +116,11 @@ angular.module('unchatbar-data-chat')
                      */
                     storeMessage: function (from, message) {
                         var channel = message.channel || '';
+
                         if (channel &&
-                            -1 === _.findIndex(this._message.unread, {'id': message.id})) {
+                            -1 === _.findIndex(this._message.unread, {'id': message.id}) &&
+                            -1 === _.findIndex(this._message.read[channel], {'id': message.id})
+                        ) {
                             this._message.unread.push({channel: channel,id:message.id, message: message, from: from});
                         }
                         /**

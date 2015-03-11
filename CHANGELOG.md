@@ -1,3 +1,7 @@
+## 0.0.7
+Feature:
+* send message by enter event
+
 ## 0.0.6
 Feature:
 * add local server for development

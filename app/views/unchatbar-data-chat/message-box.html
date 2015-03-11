@@ -1,8 +1,8 @@
-<div >
+<div>
 
     <div class="panel panel-primary">
         <div class="panel-body" scroll-glue>
-            <ul class="chat" >
+            <ul class="chat">
                 <li class="left clearfix" data-ng-repeat="message in messageList">
                             <span class="chat-img pull-left">
                             <img class="profile-image" ng-src="{{userMap[message.from].image}}" width="80">
@@ -25,16 +25,18 @@
             </ul>
         </div>
         <div class="panel-footer">
-            <div class="input-group">
-                <textarea id="btn-input" cols="2" type="text" data-ng-model="text" class="form-control input-sm"
-                       placeholder="Type your message here..."></textarea>
+            <form>
+                <div class="input-group">
+                <textarea enter-submit="sendTextMessage(userMap,channel);text='';" id="btn-input" cols="2" type="text" data-ng-model="text" class="form-control input-sm"
+                          placeholder="Type your message here..."></textarea>
                         <span class="input-group-btn">
                             <button class="btn btn-warning btn-sm" id="btn-chat"
                                     data-ng-click="sendTextMessage(userMap,channel);text='';">
                                 Send
                             </button>
                         </span>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 
