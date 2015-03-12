@@ -13,11 +13,12 @@
                             <strong class="primary-font">{{userMap[message.from].label}}</strong>
                             <small class="pull-right text-muted">
                                 <span class="glyphicon glyphicon-time"></span>
-                                {{getFormateDate(message.message.meta.sendStamp) | date:'/dd/MM/yyyy @ H:mm' :'GMT'}}
+                                {{getFormateDate(message.message.meta.sendStamp) | date:'dd/MM/yyyy @ H:mm' :'GMT'}}
                             </small>
 
                         </div>
-                        <p ng-bind-html="message.message.text | emoticons"></p>
+                        <ng-emoticons emoticons-data="message.message.text" emoticons-options="options"/>
+
                     </div>
                 </li>
             </ul>

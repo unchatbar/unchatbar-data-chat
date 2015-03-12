@@ -54,7 +54,8 @@ img.profile-image {
 .panel-body
 {
     overflow-y: scroll;
-    height: 250px;
+    height: 500px;
+    margin-bottom:10px;
 }
 
 ::-webkit-scrollbar-track

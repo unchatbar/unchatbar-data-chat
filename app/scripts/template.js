@@ -17,11 +17,12 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "                            <strong class=\"primary-font\">{{userMap[message.from].label}}</strong>\n" +
     "                            <small class=\"pull-right text-muted\">\n" +
     "                                <span class=\"glyphicon glyphicon-time\"></span>\n" +
-    "                                {{getFormateDate(message.message.meta.sendStamp) | date:'/dd/MM/yyyy @ H:mm' :'GMT'}}\n" +
+    "                                {{getFormateDate(message.message.meta.sendStamp) | date:'dd/MM/yyyy @ H:mm' :'GMT'}}\n" +
     "                            </small>\n" +
     "\n" +
     "                        </div>\n" +
-    "                        <p ng-bind-html=\"message.message.text | emoticons\"></p>\n" +
+    "                        <ng-emoticons emoticons-data=\"message.message.text\" emoticons-options=\"options\"/>\n" +
+    "\n" +
     "                    </div>\n" +
     "                </li>\n" +
     "            </ul>\n" +

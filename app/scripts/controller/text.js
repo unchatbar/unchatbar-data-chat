@@ -11,8 +11,35 @@
  * text message
  *
  */
-angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope','$filter','Message',
-    function ($scope,$filter, Message) {
+angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope', '$filter', 'Message',
+    function ($scope, $filter, Message) {
+        $scope.options = {
+            linkTarget: '_blank',
+            basicVideo: true,
+            pdf: {
+                embed: true                       //to show pdf viewer.
+            },
+            image: {
+                'embed': true
+            },
+            audio     : {
+                embed: true                       //to allow embedding audio player if link to
+
+            },
+            video: {
+                embed: true,
+                width: 500,
+                ytTheme: 'light',
+                details: true,
+                ytAuthKey: 'AIzaSyAQONTdSSaKwqB1X8i6dHgn9r_PtusDhq0'
+            },
+            code: {
+                highlight: true,               //to allow code highlighting of code written in markdown
+                //requires highligh.js (https://highlightjs.org/) as dependency.
+                lineNumbers: false               //to show line numbers
+            }
+        };
+
 
         /**
          * @ngdoc property
@@ -23,11 +50,11 @@ angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope','$f
         $scope.messageList = $scope.messageList || [];
 
         /**
-        * @ngdoc property
-        * @name unreadMessageList
-        * @propertyOf unchatbar-data-chat.controller:unDataChatText
-        * @returns {Object} list of all unread messages
-        */
+         * @ngdoc property
+         * @name unreadMessageList
+         * @propertyOf unchatbar-data-chat.controller:unDataChatText
+         * @returns {Object} list of all unread messages
+         */
         $scope.unreadMessageMap = $scope.messageList || {};
 
         /**
@@ -49,8 +76,8 @@ angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope','$f
          * send message to selected users from phone-book
          * directive call sendTextMessage by help of attribute (userIds,channel)
          */
-        $scope.sendTextMessage = function (user,channel) {
-            Message.send(user,$scope.text,channel);
+        $scope.sendTextMessage = function (user, channel) {
+            Message.send(user, $scope.text, channel);
         };
 
         /**
@@ -88,7 +115,7 @@ angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope','$f
          * get a formate date string
          *
          */
-        $scope.getFormateDate = function(date){
+        $scope.getFormateDate = function (date) {
             return new Date(date).toISOString();
 
         }

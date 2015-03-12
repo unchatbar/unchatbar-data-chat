@@ -1,3 +1,7 @@
+## 0.0.8
+Feature:
+* add video/image/ code highlight for text message
+
 ## 0.0.7
 Feature:
 * send message by enter event

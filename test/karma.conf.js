@@ -40,6 +40,7 @@ module.exports = function (config) {
             'bower_components/angular-scroll-glue/src/scrollglue.js',
             'bower_components/angular-sanitize/angular-sanitize.js',
             'bower_components/ng-emoticons/src/ng-emoticons.js',
+            'bower_components/highlightjs/highlight.pack.js',
             // endbower
             'bower_components/angular-mocks/angular-mocks.js',
             '!app/scripts/template.js',
