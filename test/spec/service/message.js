@@ -51,7 +51,7 @@ describe('Serivce: phoneBook', function () {
                     text: 'testText',
                     id: 'message-uui-id',
                     meta: {
-                        sendStamp: mockWindowDate
+                        date: mockWindowDate
                     }
                 }
             });
@@ -64,16 +64,32 @@ describe('Serivce: phoneBook', function () {
             });
         });
         describe('storeMessage', function () {
+            var oldDate = Date,mockWindowDate = 'date';
+            beforeEach(function(){
+                oldDate = Date;
+                spyOn(windowService, 'Date').and.callFake(function () {
+                    mockWindowDate = new oldDate();
+
+                    return mockWindowDate;
+                });
+            });
             it('should push message to `Message._message.unread`', function () {
-                MessageService.storeMessage('fromPeerId', {channel: 'channelA',id:'testId', text: 'message'});
+                MessageService.storeMessage('fromPeerId', {meta: {date:mockWindowDate},channel: 'channelA',id:'testId', text: 'message'});
 
                 expect(MessageService._message.unread).toEqual([
                     {
                         channel: 'channelA',
                         id:'testId',
+                        sendStamp: mockWindowDate.getTime(),
                         message: {
-                            channel: 'channelA', text: 'message',id:'testId'
+                            channel: 'channelA',
+                            text: 'message',
+                            id:'testId',
+                            meta : {
+                                date: 'date'
+                            }
                         },
+
                         from: 'fromPeerId'
                     }
                 ]);
@@ -105,17 +121,19 @@ describe('Serivce: phoneBook', function () {
                 ]);
             });
 
-
             it('should broadcast `MessageUpdateUnreadMessage` with  `Message._message.unread`', function () {
                 spyOn(rootScope, '$broadcast').and.returnValue(true);
-                MessageService.storeMessage('fromPeerId', {channel: 'channelA', text: 'message'});
-
+                MessageService.storeMessage('fromPeerId', {meta: {date:mockWindowDate},channel: 'channelA', text: 'message'});
                 expect(rootScope.$broadcast).toHaveBeenCalledWith('MessageUpdateUnreadMessage',
                     {
                         unread: {
                             channel: 'channelA',
                             message: {
-                                channel: 'channelA', text: 'message'
+                                meta : {
+                                    date: jasmine.any(Object)
+                                },
+                                channel: 'channelA',
+                                text: 'message'
                             },
                             from: 'fromPeerId'
                         }

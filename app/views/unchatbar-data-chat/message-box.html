@@ -1,9 +1,11 @@
 <div>
-
-    <div class="panel panel-primary">
+    <div class="panel panel-primary" data-ng-init="limit=5">
+        <div class="text-center" data-ng-click="limit=limit+5" title="load more from history">
+            <i class="fa fa-history fa-2x"></i></div>
         <div class="panel-body" scroll-glue>
+
             <ul class="chat">
-                <li class="left clearfix" data-ng-repeat="message in messageList">
+                <li class="left clearfix" data-ng-repeat="message in messageList | limitTo:(limit*-1) | orderBy:'sendStamp'">
                             <span class="chat-img pull-left">
                             <img class="profile-image" ng-src="{{userMap[message.from].image}}" width="80">
                         </span>
@@ -13,7 +15,8 @@
                             <strong class="primary-font">{{userMap[message.from].label}}</strong>
                             <small class="pull-right text-muted">
                                 <span class="glyphicon glyphicon-time"></span>
-                                {{getFormateDate(message.message.meta.sendStamp) | date:'dd/MM/yyyy @ H:mm' :'GMT'}}
+                                {{getFormateDate(message.message.meta.date) | date:'dd/MM/yyyy @ H:mm' :'GMT'}}
+
                             </small>
 
                         </div>

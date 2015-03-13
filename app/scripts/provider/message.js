@@ -94,7 +94,7 @@ angular.module('unchatbar-data-chat')
                             text: message,
                             id: this._createUUID(),
                             meta: {
-                                sendStamp: date
+                                date: date
                             }
                         };
                         _.forEach(users, function (user) {
@@ -121,7 +121,8 @@ angular.module('unchatbar-data-chat')
                             -1 === _.findIndex(this._message.unread, {'id': message.id}) &&
                             -1 === _.findIndex(this._message.read[channel], {'id': message.id})
                         ) {
-                            this._message.unread.push({channel: channel,id:message.id, message: message, from: from});
+                            var sendStamp = new Date(message.meta.date).getTime();
+                            this._message.unread.push({channel: channel,sendStamp: sendStamp,id:message.id, message: message, from: from});
                         }
                         /**
                          * @ngdoc event

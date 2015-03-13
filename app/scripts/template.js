@@ -7,7 +7,7 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "    <div class=\"panel panel-primary\">\n" +
     "        <div class=\"panel-body\" scroll-glue>\n" +
     "            <ul class=\"chat\">\n" +
-    "                <li class=\"left clearfix\" data-ng-repeat=\"message in messageList\">\n" +
+    "                <li class=\"left clearfix\" data-ng-repeat=\"message in messageList limitTo:-5 | orderBy:'date':true\">\n" +
     "                            <span class=\"chat-img pull-left\">\n" +
     "                            <img class=\"profile-image\" ng-src=\"{{userMap[message.from].image}}\" width=\"80\">\n" +
     "                        </span>\n" +

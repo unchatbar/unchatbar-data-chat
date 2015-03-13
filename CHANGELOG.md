@@ -1,3 +1,10 @@
+## 0.0.9
+Bugfix:
+* sort chat message by date
+
+Feature:
+* limit chat message for 5 items (can reload 5 items )
+
 ## 0.0.8
 Feature:
 * add video/image/ code highlight for text message
