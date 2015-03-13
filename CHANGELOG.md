@@ -1,6 +1,7 @@
 ## 0.0.9
 Bugfix:
 * sort chat message by date
+* bugfix error from ng-emoticons
 
 Feature:
 * limit chat message for 5 items (can reload 5 items )
