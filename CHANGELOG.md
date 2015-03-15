@@ -1,3 +1,7 @@
+## 0.0.11
+Bugfix:
+* unread message sort by time and fix date output
+
 ## 0.0.10
 Bugfix:
 * trigger event `MessageUpdateUnreadMessage` after store new message

@@ -139,7 +139,7 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "                <li class=\"left clearfix\" data-ng-show=\"unreadMessageList.length === 0\">\n" +
     "                    no new Messages\n" +
     "                </li>\n" +
-    "                <li class=\"left clearfix\" data-ng-repeat=\"message in unreadMessageList\">\n" +
+    "                <li class=\"left clearfix\" data-ng-repeat=\"message in unreadMessageList | orderBy:'sendStamp'\">\n" +
     "                            <span class=\"chat-img pull-left\">\n" +
     "                            <img class=\"profile-image\" ng-src=\"{{userMap[message.from].image}}\" width=\"80\">\n" +
     "                        </span>\n" +
@@ -149,7 +149,7 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "                            <strong class=\"primary-font\">{{userMap[message.from].label}}</strong>\n" +
     "                            <small class=\"pull-right text-muted\">\n" +
     "                                <span class=\"glyphicon glyphicon-time\"></span>\n" +
-    "                                {{getFormateDate(message.message.meta.sendStamp) | date:'/dd/MM/yyyy @ H:mm' :'GMT'}}\n" +
+    "                                {{getFormateDate(message.message.meta.date) | date:'dd/MM/yyyy @ H:mm' :'GMT'}}\n" +
     "                            </small>\n" +
     "\n" +
     "                        </div>\n" +
