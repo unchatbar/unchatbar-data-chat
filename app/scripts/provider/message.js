@@ -122,25 +122,31 @@ angular.module('unchatbar-data-chat')
                             -1 === _.findIndex(this._message.read[channel], {'id': message.id})
                         ) {
                             var sendStamp = new Date(message.meta.date).getTime();
-                            this._message.unread.push({channel: channel,sendStamp: sendStamp,id:message.id, message: message, from: from});
-                        }
-                        /**
-                         * @ngdoc event
-                         * @name MessageUpdateUnreadMessage
-                         * @eventOf unchatbar-data-chat.Message
-                         * @eventType broadcast on root scope
-                         * @description
-                         *
-                         * broadcast unread list was update
-                         *
-                         */
-                        $rootScope.$broadcast('MessageUpdateUnreadMessage', {
-                            unread: {
+                            this._message.unread.push({
                                 channel: channel,
+                                sendStamp: sendStamp,
+                                id: message.id,
                                 message: message,
                                 from: from
-                            }
-                        });
+                            });
+                            /**
+                             * @ngdoc event
+                             * @name MessageUpdateUnreadMessage
+                             * @eventOf unchatbar-data-chat.Message
+                             * @eventType broadcast on root scope
+                             * @description
+                             *
+                             * broadcast unread list was update
+                             *
+                             */
+                            $rootScope.$broadcast('MessageUpdateUnreadMessage', {
+                                unread: {
+                                    channel: channel,
+                                    message: message,
+                                    from: from
+                                }
+                            });
+                        }
                     },
 
                     /**

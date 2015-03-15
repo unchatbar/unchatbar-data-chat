@@ -1,3 +1,7 @@
+## 0.0.10
+Bugfix:
+* trigger event `MessageUpdateUnreadMessage` after store new message
+
 ## 0.0.9
 Bugfix:
 * sort chat message by date
