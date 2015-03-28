@@ -6,17 +6,10 @@
     <title>unchatbar connection</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower_components/ng-emoticons/src/ng-emoticons.css" />
-    <link rel="stylesheet" href="bower_components/highlightjs/styles/default.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
+
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/offcanvas.css">
-    <link rel="stylesheet" href="styles/custom.css">
+
+    <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 </head>
 <body>
@@ -74,6 +67,8 @@
                 <div ng-show="channelList[activeChannel][ownPeerId]">
                     <un-data-chat-message-box data-channel="{{activeChannel}}"
                                               data-user-map="channelList[activeChannel]"></un-data-chat-message-box>
+                    <un-data-chat-send-box data-channel="{{activeChannel}}"
+                                              data-user-map="channelList[activeChannel]"></un-data-chat-send-box>
                 </div>
                 <div ng-show="!channelList[activeChannel][ownPeerId]">
                     you are no member of group {{activeChannel}}
@@ -102,17 +97,18 @@
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/ngstorage/ngStorage.js"></script>
 <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+<script src="bower_components/angular-gettext/dist/angular-gettext.js"></script>
 <script src="bower_components/peerjs/peer.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="bower_components/unchatbar-connection/app/scripts/app.js"></script>
 <script src="bower_components/unchatbar-connection/app/scripts/run.js"></script>
 <script src="bower_components/unchatbar-connection/app/scripts/template.js"></script>
+<script src="bower_components/unchatbar-connection/app/scripts/translations.js"></script>
 <script src="bower_components/unchatbar-connection/app/scripts/provider/broker.js"></script>
 <script src="bower_components/unchatbar-connection/app/scripts/provider/data-connection.js"></script>
 <script src="bower_components/unchatbar-connection/app/scripts/service/peer.js"></script>
 <script src="bower_components/unchatbar-connection/app/scripts/directive/dialer.js"></script>
 <script src="bower_components/unchatbar-connection/app/scripts/directive/login.js"></script>
-<script src="bower_components/unchatbar-connection/app/scripts/directive/peerId.js"></script>
 <script src="bower_components/unchatbar-connection/app/scripts/controller/dialer.js"></script>
 <script src="bower_components/unchatbar-connection/app/scripts/controller/model-password.js"></script>
 <script src="bower_components/angular-scroll-glue/src/scrollglue.js"></script>
@@ -136,7 +132,7 @@
 <script src="scripts/directive/enter.js"></script>
 <script src="scripts/directive/message-box.js"></script>
 <script src="scripts/directive/unread-message.js"></script>
-
+<script src="scripts/directive/send-box.js"></script>
 <!-- run -->
 <script src="scripts/run.js"></script>
 <!-- endbuild -->

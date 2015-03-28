@@ -1,0 +1,19 @@
+<form class="navbar-form">
+    <div class="form-group">
+        <label class="sr-only" for="input-message" translate>Your message</label>
+
+        <div class="input-group">
+                <textarea enter-submit="sendTextMessage(userMap,channel);text='';"
+                          id="input-message"
+                          class="form-control input-sm"
+                          cols="2"
+                          autocomplete="off"
+                          data-ng-model="text" class="form-control input-sm"
+                          placeholder="{{'Enter your message' | translate }}"></textarea>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-inverse btn-sm" data-ng-click="sendTextMessage(userMap,channel);text='';">
+                <i class="fa fa-comment"></i></button>
+          </span>
+        </div>
+    </div>
+</form>

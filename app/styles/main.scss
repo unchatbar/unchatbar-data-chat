@@ -1,0 +1,21 @@
+/* VENDOR - Default fall-backs and external files.
+========================================================================== */
+
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap";
+@import "components-font-awesome/scss/font-awesome";
+@import "ng-emoticons/dist/ng-emoticons.min.css";
+
+/* Variable
+========================================================================== */
+@import "_variables";
+
+/* Layout
+========================================================================== */
+@import "_layout";
+
+
+/* components
+========================================================================== */
+
+@import "components/_message-box";
+
