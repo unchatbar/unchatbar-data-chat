@@ -1,9 +1,9 @@
 /* VENDOR - Default fall-backs and external files.
 ========================================================================== */
 
+@import url("../../bower_components/ng-emoticons/dist/ng-emoticons.min.css");
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap";
 @import "components-font-awesome/scss/font-awesome";
-@import url("../../bower_components/ng-emoticons/dist/ng-emoticons.min.css");
 
 /* Variable
 ========================================================================== */
@@ -18,4 +18,6 @@
 ========================================================================== */
 
 @import "components/_message-box";
+@import "components/_message-unread";
+@import "components/_send-box";
 

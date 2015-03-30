@@ -1,22 +1,19 @@
-<div class="text-center" data-ng-click="limit=limit+10" title="load more from history">
-    <i class="fa fa-history fa-2x"></i>
+<div class="limit-loader" data-ng-click="limit=limit+10" title="{{'load more from history' | translate}}">
+    <i></i>
 </div>
 
-<ul class="list-unstyled" data-ng-init="limit=10">
-
+<ul class="data-chat-list" data-ng-init="limit=10">
     <li class="mar-btm" data-ng-repeat="message in messageList | limitTo:(limit*-1) | orderBy:'sendStamp'">
         <div data-ng-class="{'media-left' : ownPeerId === message.from,'media-right' : ownPeerId !== message.from}" >
             <img class="img-circle img-sm" ng-src="{{userMap[message.from].image}}" width="80">
         </div>
-        <div class="media-body pad-hor" data-ng-class="{'speech-right' : ownPeerId !== message.from}">
+        <div class="data-message-body pad-hor" data-ng-class="{'speech-right' : ownPeerId !== message.from}">
             <div class="speech">
                 <a href="#" class="media-heading">{{userMap[message.from].label}}</a>
-
                 <p>
                     <ng-emoticons emoticons-template-url="views/unchatbar-data-chat/message.html"
                                   emoticons-data="message.message.text" emoticons-options="options"/>
                 </p>
-
                 <p class="speech-time">
                     <i class="fa fa-clock-o fa-fw"></i> {{getFormateDate(message.message.meta.date) |
                     date:'dd/MM/yyyy @ H:mm' :'GMT'}}

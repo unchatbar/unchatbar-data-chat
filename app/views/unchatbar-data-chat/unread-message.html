@@ -1,37 +1,23 @@
-<div data-ng-init="showMessage=false">
-    <div class="notification-icon fa-2x" data-ng-click="showMessage=!showMessage">
-        <span class="glyphicon glyphicon-envelope"></span>
-        <span class="badge">{{unreadMessageList.length || 0}}</span>
-    </div>
-    <div class="panel panel-primary new-message-box" data-ng-show="showMessage">
-        <div class="panel-body" scroll-glue>
-            <ul class="chat">
-                <li class="left clearfix" data-ng-show="unreadMessageList.length === 0">
-                    no new Messages
-                </li>
-                <li class="left clearfix" data-ng-repeat="message in unreadMessageList | orderBy:'sendStamp'">
-                    <a ui-sref="channel({channel: message.channel})">
-                            <span class="chat-img pull-left">
-                            <img class="profile-image" ng-src="{{userMap[message.from].image}}" width="80">
-                        </span>
+<ul role="menu" data-ng-init="showMessage=false"
+    class="data-chat-list-unread"
+        style="display: block;">
+    <li class="chat-header">
+        <span class="chat-text" translate>You have {{unreadMessageList.length || 0}} Messages</span>
+    </li>
+    <li class="chat-divider"></li>
+    <li data-ng-repeat="message in unreadMessageList | orderBy:'sendStamp'">
+        <a ui-sref="channel({channel: message.channel})" class="text-item">
+              <span class="profile-image">
+                <img alt="{{userMap[message.from].label}}"
+                     ng-src="{{userMap[message.from].image}}" class="img-circle img-sm">
+              </span>
 
-                        <div class="chat-body clearfix">
-
-                            <div class="header">
-                                <strong class="primary-font">{{userMap[message.from].label}}</strong>
-                                <small class="pull-right text-muted">
-                                    <span class="glyphicon glyphicon-time"></span>
-                                    {{getFormateDate(message.message.meta.date) | date:'dd/MM/yyyy @ H:mm' :'GMT'}}
-                                </small>
-
-                            </div>
-                            <p>
-                                {{message.message.text}}
-                            </p>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+            <div class="text-body">
+                <div class="text-message">{{message.message.text}}</div>
+                <small class="text-date">
+                    {{getFormateDate(message.message.meta.date) | date:'dd/MM/yyyy @ H:mm' :'GMT'}}
+                </small>
+            </div>
+        </a>
+    </li>
+</ul>

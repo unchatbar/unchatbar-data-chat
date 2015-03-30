@@ -1,0 +1,34 @@
+.send-box {
+  .form-group {
+    @extend .form-group;
+    width: 100%;
+  }
+  label {
+    @extend .sr-only;
+  }
+  .send-input{
+    @extend .input-group;
+    width: 100%;
+    textarea {
+      @extend .form-control, .input-sm;
+    }
+  }
+  .send-button {
+    @extend .input-group-btn;
+    button {
+      @extend .btn, .btn-sm;
+      background-color: #383a42;
+      border-color: #34373e;
+      color: #fff;
+    }
+  }
+  margin: 0;
+  padding-bottom: 10px;
+  padding-top: 10px;
+
+
+  input {
+    width: 1%;
+  }
+}
+

@@ -1,0 +1,66 @@
+.data-chat-list-unread {
+  @extend .dropdown-menu, .dropdown-menu-left;
+  &:before {
+    border-bottom: 7px solid #d0d0d0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    content: "";
+    display: block;
+    height: 0;
+    left: 0;
+    margin: -7px 0 0 15px;
+    position: absolute;
+    top: 0;
+    width: 0;
+  }
+  &:after {
+    border-bottom: 7px solid #fff;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    content: "";
+    display: block;
+    height: 0;
+    left: 0;
+    margin: -6px 0 0 15px;
+    position: absolute;
+    top: 0;
+    width: 0;
+  }
+  .chat-header {
+    @extend .dropdown-header;
+    padding: 15px;
+    .chat-text {
+      @extend .text-muted;
+      font-size: 1.2em;
+      line-height: 1.25;
+      font-weight: 300;
+    }
+  }
+  .chat-divider {
+    @extend .divider;
+    margin: 0px;
+  }
+  .text-item {
+    @extend .media;
+    padding: 10px 15px;
+    .profile-image {
+      @extend .media-left;
+      img {
+        @extend .img-circle;
+        height: 46px;
+        width: 46px;
+      }
+    }
+    .text-body {
+      @extend .media-body;
+      .text-message {
+        @extend .text-nowrap;
+        font-size: 0.9em;
+        line-height: 1.25;
+      }
+      .text-date {
+        @extend .text-muted;
+      }
+    }
+  }
+}
