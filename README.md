@@ -86,6 +86,13 @@ Message.getUnreadMessageMap();
 <un-data-chat-unread-message data-user-map="[USERLIST IN CHANNEL]"></un-data-chat-unread-message>
 ```
 
+* output count of unread message
+
+>
+```html
+<un-data-chat-count-unread-message ></un-data-chat-count-unread-message>
+```
+
 ## Events
 
 * **MessageUpdateReadMessage**: add new read message

@@ -53,7 +53,12 @@
                         <a ui-sref="channel({channel: channel})" >{{channel}}</a>
                     </li>
                     <li>
-                        <un-data-chat-unread-message data-user-map="userMap"></un-data-chat-unread-message>
+                        <a href="#" data-ng-click="showUnread=!showUnread" style="color:#444">
+                            <i class="fa fa-envelope fa-lg"></i>
+
+                            <un-data-chat-count-unread-message addition-class="'badge-primary'"></un-data-chat-count-unread-message>
+                        </a>
+                        <un-data-chat-unread-message data-user-map="userMap" data-ng-show="showUnread"></un-data-chat-unread-message>
                     </li>
                 </ul>
             </div>
@@ -136,6 +141,7 @@
 <script src="scripts/directive/message-box.js"></script>
 <script src="scripts/directive/unread-message.js"></script>
 <script src="scripts/directive/send-box.js"></script>
+<script src="scripts/directive/count-unread.js"></script>
 <!-- run -->
 <script src="scripts/run.js"></script>
 <!-- endbuild -->
@@ -148,6 +154,7 @@
 
     angular.module('unchatbar-data-chat').controller('unDataChatDemo',
             function ($scope, $stateParams, Broker) {
+                $scope.showUnread= false;
                 $scope.userMap = {
                     'admin': {
                         id: 'admin',
@@ -196,6 +203,7 @@
                 });
 
                 $scope.$on('$stateChangeSuccess', function () {
+                    $scope.showUnread= false;
                     $scope.activeChannel = $stateParams.channel;
                 });
 
