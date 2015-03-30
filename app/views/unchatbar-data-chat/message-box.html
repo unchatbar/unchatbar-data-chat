@@ -5,13 +5,12 @@
 <ul class="list-unstyled" data-ng-init="limit=10">
 
     <li class="mar-btm" data-ng-repeat="message in messageList | limitTo:(limit*-1) | orderBy:'sendStamp'">
-
-        <div class="media-left" >
-            <img class="img-circle img-sm" ng-src="{{userMap[message.from].image}}" width="80">{{userMap[message.from].label}}
+        <div data-ng-class="{'media-left' : ownPeerId === message.from,'media-right' : ownPeerId !== message.from}" >
+            <img class="img-circle img-sm" ng-src="{{userMap[message.from].image}}" width="80">
         </div>
-        <div class="media-body pad-hor">
+        <div class="media-body pad-hor" data-ng-class="{'speech-right' : ownPeerId !== message.from}">
             <div class="speech">
-                <a href="#" class="media-heading">Thor</a>
+                <a href="#" class="media-heading">{{userMap[message.from].label}}</a>
 
                 <p>
                     <ng-emoticons emoticons-template-url="views/unchatbar-data-chat/message.html"

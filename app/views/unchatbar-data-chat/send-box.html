@@ -1,4 +1,4 @@
-<form class="navbar-form">
+<form class="send-box">
     <div class="form-group">
         <label class="sr-only" for="input-message" translate>Your message</label>
 
@@ -6,7 +6,8 @@
                 <textarea enter-submit="sendTextMessage(userMap,channel);text='';"
                           id="input-message"
                           class="form-control input-sm"
-                          cols="2"
+                          cols="1"
+                          msd-elastic="\n"
                           autocomplete="off"
                           data-ng-model="text" class="form-control input-sm"
                           placeholder="{{'Enter your message' | translate }}"></textarea>

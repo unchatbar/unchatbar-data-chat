@@ -14,7 +14,10 @@ angular.module('unchatbar-data-chat', [
     'luegg.directives',
     'ngEmoticons',
     'unchatbar-connection',
-    'gettext'
+    'gettext',
+    'monospaced.elastic',
+    'ui.router',
+
 
 ]);
 

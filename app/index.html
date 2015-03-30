@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width">
 
     <!-- build:css(.tmp) styles/main.css -->
-
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 </head>
@@ -36,7 +35,6 @@
                         <br/>
                         <button class="btn btn-default" data-ng-click="join(user.id)">select user</button>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -50,9 +48,9 @@
                 </div>
                 <ul class="nav nav-tabs">
                     <li role="presentation" data-ng-repeat="(channel,userMap) in channelList"
-                        data-ng-class="{'active' : channel === activeChannel}">
+                        ui-sref-active="active">
 
-                        <a href="javascript:void(0)" data-ng-click="setActiveChannel(channel)">{{channel}}</a>
+                        <a ui-sref="channel({channel: channel})" >{{channel}}</a>
                     </li>
                     <li>
                         <un-data-chat-unread-message data-user-map="userMap"></un-data-chat-unread-message>
@@ -61,19 +59,21 @@
             </div>
         </div>
         <br/>
-
         <div class="row">
             <div class="col-sx-12">
                 <div ng-show="channelList[activeChannel][ownPeerId]">
                     <un-data-chat-message-box data-channel="{{activeChannel}}"
                                               data-user-map="channelList[activeChannel]"></un-data-chat-message-box>
-                    <un-data-chat-send-box data-channel="{{activeChannel}}"
-                                              data-user-map="channelList[activeChannel]"></un-data-chat-send-box>
+
                 </div>
                 <div ng-show="!channelList[activeChannel][ownPeerId]">
                     you are no member of group {{activeChannel}}
                 </div>
             </div>
+            <div class="col-sx-12">
+            <un-data-chat-send-box data-channel="{{activeChannel}}"
+                                   data-user-map="channelList[activeChannel]"></un-data-chat-send-box>
+                </div>
         </div>
     </div>
 </div>
@@ -115,6 +115,8 @@
 <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 <script src="bower_components/ng-emoticons/src/ng-emoticons.js"></script>
 <script src="bower_components/highlightjs/highlight.pack.js"></script>
+<script src="bower_components/angular-elastic/elastic.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -125,6 +127,7 @@
 <script src="scripts/provider/message.js"></script>
 <!-- Config -->
 <script src="scripts/config/broker.js"></script>
+<script src="scripts/config/state.js"></script>
 <!-- Controller -->
 <script src="scripts/controller/text.js"></script>
 
@@ -144,7 +147,7 @@
     });
 
     angular.module('unchatbar-data-chat').controller('unDataChatDemo',
-            function ($scope, Broker) {
+            function ($scope, $stateParams, Broker) {
                 $scope.userMap = {
                     'admin': {
                         id: 'admin',
@@ -192,9 +195,9 @@
                     $scope.ownPeerId = Broker.getPeerIdFromStorage();
                 });
 
-                $scope.setActiveChannel = function (channel) {
-                    $scope.activeChannel = channel;
-                }
+                $scope.$on('$stateChangeSuccess', function () {
+                    $scope.activeChannel = $stateParams.channel;
+                });
 
                 $scope.ownPeerId = Broker.getPeerIdFromStorage();
                 if ($scope.ownPeerId) {

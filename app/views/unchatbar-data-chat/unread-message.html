@@ -5,28 +5,31 @@
     </div>
     <div class="panel panel-primary new-message-box" data-ng-show="showMessage">
         <div class="panel-body" scroll-glue>
-            <ul class="chat" >
+            <ul class="chat">
                 <li class="left clearfix" data-ng-show="unreadMessageList.length === 0">
                     no new Messages
                 </li>
                 <li class="left clearfix" data-ng-repeat="message in unreadMessageList | orderBy:'sendStamp'">
+                    <a ui-sref="channel({channel: message.channel})">
                             <span class="chat-img pull-left">
                             <img class="profile-image" ng-src="{{userMap[message.from].image}}" width="80">
                         </span>
 
-                    <div class="chat-body clearfix">
-                        <div class="header">
-                            <strong class="primary-font">{{userMap[message.from].label}}</strong>
-                            <small class="pull-right text-muted">
-                                <span class="glyphicon glyphicon-time"></span>
-                                {{getFormateDate(message.message.meta.date) | date:'dd/MM/yyyy @ H:mm' :'GMT'}}
-                            </small>
+                        <div class="chat-body clearfix">
 
+                            <div class="header">
+                                <strong class="primary-font">{{userMap[message.from].label}}</strong>
+                                <small class="pull-right text-muted">
+                                    <span class="glyphicon glyphicon-time"></span>
+                                    {{getFormateDate(message.message.meta.date) | date:'dd/MM/yyyy @ H:mm' :'GMT'}}
+                                </small>
+
+                            </div>
+                            <p>
+                                {{message.message.text}}
+                            </p>
                         </div>
-                        <p>
-                            {{message.message.text}}
-                        </p>
-                    </div>
+                    </a>
                 </li>
             </ul>
         </div>

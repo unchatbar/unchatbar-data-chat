@@ -1,21 +1,15 @@
-
-.navbar-form .form-group,
-.navbar-form .input-group {
-  width: 100%
-}
-
-.navbar-form .input-group .input-group-btn {
-  width: 1%
-}
-
-@media (min-width: 768px) {
-  .navbar-container-bottom > .navbar-footer {
-    display: block;
-    float: left;
-    width: 250px
+.send-box {
+  margin: 0;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  .form-group{
+    width: 100%;
   }
-
-  .navbar-container-bottom > .navbar-content {
-    margin-left: 250px
+  .input-group {
+    width: 100%;
+  }
+  input {
+    width: 1%;
   }
 }
+

@@ -10,17 +10,18 @@
   margin: 30px 0 20px;
   border-bottom-color: #ccc
 }
-
-.page-content {
-  margin: 20px 0;
-}
-
-.page-content .media-left {
+.media-left {
   float: left
 }
 
-.page-content .media-right {
+.media-right {
   float: right
+}
+.page-content {
+  margin: 20px 0;
+  .media-right {
+    float: right
+  }
 }
 
 .speech {
@@ -29,17 +30,28 @@
   color: #444;
   display: inline-block;
   border-radius: 2px;
-  padding: 12px 20px
+  padding: 12px 20px;
+  .media-heading {
+    font-size: 1.2em;
+    color: #333;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    font-weight: 300
+  }
+}
+.pad-hor {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.img-sm {
+  height: 46px;
+  width: 46px;
 }
 
-.speech .media-heading {
-  font-size: 1.2em;
-  color: #333;
-  display: block;
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-  font-weight: 300
+.mar-btm {
+  margin-bottom: 15px;
 }
 
 .speech .media-heading:hover {

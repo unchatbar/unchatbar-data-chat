@@ -11,8 +11,10 @@
  * text message
  *
  */
-angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope', '$filter', 'Message',
-    function ($scope, $filter, Message) {
+angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope', '$filter', 'Message','Broker',
+    function ($scope, $filter, Message, Broker) {
+
+
         $scope.options = {
             linkTarget: '_blank',
             basicVideo: true,
@@ -40,6 +42,13 @@ angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope', '$
             }
         };
 
+        /**
+         * @ngdoc property
+         * @name ownPeerId
+         * @propertyOf unchatbar-data-chat.controller:unDataChatText
+         * @returns {String} own peer id
+         */
+        $scope.ownPeerId = Broker.getPeerIdFromStorage();
 
         /**
          * @ngdoc property

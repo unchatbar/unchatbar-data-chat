@@ -42,6 +42,8 @@ module.exports = function (config) {
             'bower_components/angular-sanitize/angular-sanitize.js',
             'bower_components/ng-emoticons/src/ng-emoticons.js',
             'bower_components/highlightjs/highlight.pack.js',
+            'bower_components/angular-elastic/elastic.js',
+            'bower_components/angular-ui-router/release/angular-ui-router.js',
             // endbower
             'bower_components/angular-mocks/angular-mocks.js',
             '!app/scripts/template.js',
