@@ -1,6 +1,11 @@
 angular.module('unchatbar-data-chat').run(['$templateCache', function($templateCache) {
   'use strict';
 
+  $templateCache.put('views/unchatbar-data-chat/count-unread-message.html',
+    "<div class=\"un-count-unread-message\">{{unreadMessageList.length || 0}}</div>"
+  );
+
+
   $templateCache.put('views/unchatbar-data-chat/message-box.html',
     "<div class=\"limit-loader\" data-ng-click=\"limit=limit+10\" title=\"{{'load more from history' | translate}}\">\n" +
     "    <i></i>\n" +
@@ -145,8 +150,8 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "              </span>\n" +
     "\n" +
     "            <div class=\"text-body\">\n" +
-    "                <div class=\"text-sm text-nowrap\">{{message.message.text}}</div>\n" +
-    "                <small class=\"text-muted\">\n" +
+    "                <div class=\"text-message\">{{message.message.text}}</div>\n" +
+    "                <small class=\"text-date\">\n" +
     "                    {{getFormateDate(message.message.meta.date) | date:'dd/MM/yyyy @ H:mm' :'GMT'}}\n" +
     "                </small>\n" +
     "            </div>\n" +
