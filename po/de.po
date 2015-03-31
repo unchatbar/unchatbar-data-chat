@@ -1,0 +1,29 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: unchatbar-data-chat\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Language: de\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: app/views/unchatbar-data-chat/send-box.html:12
+msgid "Enter your message"
+msgstr "Gib deine Nachricht ein"
+
+#: app/views/unchatbar-data-chat/unread-message.html:5
+msgid "You have {{unreadMessageList.length || 0}} Messages"
+msgstr "Du hast {{unreadMessageList.length || 0}} Nachrichten"
+
+#: app/views/unchatbar-data-chat/send-box.html:3
+msgid "Your message"
+msgstr "Deine Nachricht"
+
+#: app/views/unchatbar-data-chat/message-box.html:1
+msgid "load more from history"
+msgstr "Lade letzte Nachrichten"

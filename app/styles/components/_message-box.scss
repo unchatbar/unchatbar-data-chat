@@ -29,7 +29,7 @@
 
   .speech {
     position: relative;
-    background: #d9e6ff;
+    background: #c6daf7;
     color: #444;
     display: inline-block;
     border-radius: 2px;
@@ -62,7 +62,7 @@
   }
 
   .speech-right > .speech {
-    background: #ecffc9;
+    background: #c6daf7;
     text-align: right
   }
 
@@ -76,7 +76,7 @@
     top: 0;
     border-top: 7px solid transparent;
     border-bottom: 7px solid transparent;
-    border-right: 7px solid #d9e6ff;
+    border-right: 7px solid #c6daf7;
     margin: 15px 0 0 -6px
   }
 
@@ -85,7 +85,7 @@
     right: 0;
     border-top: 7px solid transparent;
     border-bottom: 7px solid transparent;
-    border-left: 7px solid #ecffc9;
+    border-left: 7px solid #c6daf7;
     border-right: 0;
     margin: 15px -6px 0 0
   }
