@@ -15,6 +15,8 @@ angular.module('unchatbar-data-chat').run(['$rootScope', 'Message',
             Message.storeMessage(data.peerId, data.message.meta);
         });
 
-
+        $rootScope.$on('ConnectionGetMessage_readMessage' , function(event, data){
+            Message.clientReadMessage(data.message.id);
+        });
     }
 ]);

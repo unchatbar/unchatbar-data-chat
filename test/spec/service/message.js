@@ -24,7 +24,8 @@ describe('Serivce: phoneBook', function () {
                 expect(sessionStorage.$default).toHaveBeenCalledWith({
                     textMessage: {
                         unread: [],
-                        read: {}
+                        read: {},
+                        unreadByClient: {}
                     }
                 });
             });
@@ -35,7 +36,7 @@ describe('Serivce: phoneBook', function () {
         describe('send', function () {
             var messageObject = {}, mockWindowDate;
             beforeEach(function () {
-                spyOn(DataConnectionService, 'send').and.returnValue(true);
+                spyOn(DataConnectionService, 'send').and.returnValue('messageId');
                 spyOn(MessageService, 'storeMessage').and.returnValue(true);
                 spyOn(BrokerService, 'getPeerId').and.returnValue('ownPeerId');
                 spyOn(MessageService, '_createUUID').and.returnValue('message-uui-id');
@@ -45,6 +46,7 @@ describe('Serivce: phoneBook', function () {
 
                     return mockWindowDate;
                 });
+
                 MessageService.send([{id: 'user'}], 'testText', 'channelA');
                 messageObject = {
                     channel: 'channelA',
@@ -56,16 +58,80 @@ describe('Serivce: phoneBook', function () {
                 }
             });
             it('should call `DataConnection.send` for all user with userId,`Message`,messageObject', function () {
-                expect(DataConnectionService.send).toHaveBeenCalledWith('user', '', 'dataChat', messageObject);
+                expect(DataConnectionService.send).toHaveBeenCalledWith('user', '', 'dataChat', {
+                    channel: 'channelA',
+                    text: 'testText',
+                    id: 'message-uui-id',
+                    meta: {
+                        date: mockWindowDate
+                    },
+                    readByClient: false
+                });
             });
 
             it('should call `DataConnection.send` for all user with userId,`Message`,messageObject', function () {
-                expect(MessageService.storeMessage).toHaveBeenCalledWith('ownPeerId', messageObject);
+                expect(MessageService.storeMessage).toHaveBeenCalledWith('ownPeerId', {
+                    channel: 'channelA',
+                    text: 'testText',
+                    id: 'message-uui-id',
+                    meta: {
+                        date: mockWindowDate
+                    },
+                    readByClient: false
+                });
+            });
+
+            it('should sendMessageId in `_message.unreadByClient`', function () {
+                    expect(MessageService._message.unreadByClient).toEqual({
+                        messageId: {messageId: 'message-uui-id', channel: 'channelA'}
+                    });
+                }
+            );
+        });
+
+        describe('clientReadMessage', function () {
+            beforeEach(function () {
+                MessageService._message.unreadByClient = {
+                    sendMessageIdFromBroker: {
+                        messageId: 'messageId', channel: 'channelA'
+                    },
+                    sendMessageIdFromBrokerB: {
+                        messageId: 'messageId', channel: 'channelA'
+                    }
+                };
+                MessageService._message.read = {
+                    channelA: [{id: 'messageId'}, {id: 'messageIdB'}]
+                };
+                spyOn(rootScope,'$broadcast').and.returnValue(true);
+            });
+            it('should store key `read:true` to a sended client message', function () {
+                MessageService.clientReadMessage('sendMessageIdFromBroker');
+
+                expect(MessageService._message.read).toEqual(MessageService._message.read = {
+                    channelA: [{id: 'messageId', readByClient: true}, {id: 'messageIdB'}]
+                });
+            });
+
+            it('should remove messageId from `_message.readByClient`', function () {
+                MessageService.clientReadMessage('sendMessageIdFromBroker');
+
+                expect(MessageService._message.unreadByClient).toEqual({
+                    sendMessageIdFromBrokerB: {
+                        messageId: 'messageId', channel: 'channelA'
+                    }
+                });
+            });
+
+            it('should broadcast `MessageUpdateReadMessage`', function () {
+                MessageService.clientReadMessage('sendMessageIdFromBroker');
+
+                expect(rootScope.$broadcast).toHaveBeenCalledWith('MessageUpdateReadMessage',{});
             });
         });
+
         describe('storeMessage', function () {
-            var oldDate = Date,mockWindowDate = 'date';
-            beforeEach(function(){
+            var oldDate = Date, mockWindowDate = 'date';
+            beforeEach(function () {
                 oldDate = Date;
                 spyOn(windowService, 'Date').and.callFake(function () {
                     mockWindowDate = new oldDate();
@@ -74,18 +140,23 @@ describe('Serivce: phoneBook', function () {
                 });
             });
             it('should push message to `Message._message.unread`', function () {
-                MessageService.storeMessage('fromPeerId', {meta: {date:mockWindowDate},channel: 'channelA',id:'testId', text: 'message'});
+                MessageService.storeMessage('fromPeerId', {
+                    meta: {date: mockWindowDate},
+                    channel: 'channelA',
+                    id: 'testId',
+                    text: 'message'
+                });
 
                 expect(MessageService._message.unread).toEqual([
                     {
                         channel: 'channelA',
-                        id:'testId',
+                        id: 'testId',
                         sendStamp: mockWindowDate.getTime(),
                         message: {
                             channel: 'channelA',
                             text: 'message',
-                            id:'testId',
-                            meta : {
+                            id: 'testId',
+                            meta: {
                                 date: 'date'
                             }
                         },
@@ -99,7 +170,7 @@ describe('Serivce: phoneBook', function () {
                 MessageService._message.unread = [
                     {
                         channel: 'channelA',
-                        id:'testId',
+                        id: 'testId',
                         message: {
                             channel: 'channelA', text: 'message'
                         },
@@ -107,12 +178,12 @@ describe('Serivce: phoneBook', function () {
                     }
                 ];
 
-                MessageService.storeMessage('fromPeerId', {channel: 'channelA',id:'testId', text: 'message'});
+                MessageService.storeMessage('fromPeerId', {channel: 'channelA', id: 'testId', text: 'message'});
 
                 expect(MessageService._message.unread).toEqual([
                     {
                         channel: 'channelA',
-                        id:'testId',
+                        id: 'testId',
                         message: {
                             channel: 'channelA', text: 'message'
                         },
@@ -123,13 +194,17 @@ describe('Serivce: phoneBook', function () {
 
             it('should broadcast `MessageUpdateUnreadMessage` with  `Message._message.unread`', function () {
                 spyOn(rootScope, '$broadcast').and.returnValue(true);
-                MessageService.storeMessage('fromPeerId', {meta: {date:mockWindowDate},channel: 'channelA', text: 'message'});
+                MessageService.storeMessage('fromPeerId', {
+                    meta: {date: mockWindowDate},
+                    channel: 'channelA',
+                    text: 'message'
+                });
                 expect(rootScope.$broadcast).toHaveBeenCalledWith('MessageUpdateUnreadMessage',
                     {
                         unread: {
                             channel: 'channelA',
                             message: {
-                                meta : {
+                                meta: {
                                     date: jasmine.any(Object)
                                 },
                                 channel: 'channelA',

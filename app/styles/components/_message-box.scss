@@ -26,7 +26,12 @@
     padding-left: 15px;
     padding-right: 15px;
   }
-
+  .message-read {
+    i {
+      @extend .fa, .fa-check;
+      color:green;
+    }
+  }
   .speech {
     position: relative;
     background: #c6daf7;

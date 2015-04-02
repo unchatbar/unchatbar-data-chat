@@ -55,7 +55,8 @@ angular.module('unchatbar-data-chat')
                      */
                     _message: {
                         unread: [],
-                        read: {}
+                        read: {},
+                        unreadByClient: {}
                     },
 
                     /**
@@ -71,7 +72,8 @@ angular.module('unchatbar-data-chat')
                         this._message = storage.$default({
                             textMessage: {
                                 unread: [],
-                                read: {}
+                                read: {},
+                                unreadByClient: {}
                             }
                         }).textMessage;
                     },
@@ -89,19 +91,53 @@ angular.module('unchatbar-data-chat')
                      */
                     send: function (users, message, channel) {
                         var date = new $window.Date();
+                        var sendMessageId = null;
                         var message = {
                             channel: channel,
                             text: message,
                             id: this._createUUID(),
                             meta: {
                                 date: date
-                            }
+                            },
+                            readByClient: false
                         };
                         _.forEach(users, function (user) {
-                            DataConnection.send(user.id, '', 'dataChat', message);
-                        });
-                        this.storeMessage(Broker.getPeerId(), message);
+                            sendMessageId = DataConnection.send(user.id, '', 'dataChat', message);
+                            this._message.unreadByClient[sendMessageId] = {messageId: message.id, channel: channel};
+                        }.bind(this));
 
+                        this.storeMessage(Broker.getPeerId(), message);
+                    },
+
+                    /**
+                     * @ngdoc methode
+                     * @name clientReadMessage
+                     * @methodOf unchatbar-data-chat.Message
+                     * @params {Array} users peer id from users
+                     * @params {Object} messageId sendes message id
+                     * @description
+                     *
+                     * client read message - store this info to the sended message
+                     */
+                    clientReadMessage: function (messageId) {
+                        var clientMessage = this._message.unreadByClient[messageId] || null;
+                        if (clientMessage) {
+                            var messageIndex = _.find(this._message.read[clientMessage.channel],
+                                    {id: clientMessage.messageId}) || {};
+                            messageIndex.readByClient = true;
+                            delete this._message.unreadByClient[messageId];
+                            /**
+                             * @ngdoc event
+                             * @name MessageUpdateUnreadMessage
+                             * @eventOf unchatbar-data-chat.Message
+                             * @eventType broadcast on root scope
+                             * @description
+                             *
+                             * broadcast unread list was update
+                             *
+                             */
+                            $rootScope.$broadcast('MessageUpdateReadMessage', {});
+                        }
                     },
 
                     /**

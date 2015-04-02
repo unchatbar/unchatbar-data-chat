@@ -18,6 +18,9 @@
                     <i class="fa fa-clock-o fa-fw"></i> {{getFormateDate(message.message.meta.date) |
                     date:'dd/MM/yyyy @ H:mm' :'GMT'}}
                 </p>
+                <div data-ng-class="{'message-read' :message.readByClient }">
+                    <i></i>
+                </div>
             </div>
         </div>
     </li>

@@ -27,6 +27,8 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "                    <i class=\"fa fa-clock-o fa-fw\"></i> {{getFormateDate(message.message.meta.date) |\n" +
     "                    date:'dd/MM/yyyy @ H:mm' :'GMT'}}\n" +
     "                </p>\n" +
+    "                <i class=\"fa fa-check\"></i>\n" +
+    "                READ:{{message.readByClient}}\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </li>\n" +
@@ -125,7 +127,7 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "                          data-ng-model=\"text\" class=\"form-control input-sm\"\n" +
     "                          placeholder=\"{{'Enter your message' | translate }}\"></textarea>\n" +
     "          <span class=\"send-button\">\n" +
-    "            <button type=\"button\"data-ng-click=\"sendTextMessage(userMap,channel);text='';\">\n" +
+    "            <button type=\"button\" data-ng-click=\"sendTextMessage(userMap,channel);text='';\">\n" +
     "                <i class=\"fa fa-comment\"></i></button>\n" +
     "          </span>\n" +
     "        </div>\n" +
