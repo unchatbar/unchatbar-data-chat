@@ -27,8 +27,9 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "                    <i class=\"fa fa-clock-o fa-fw\"></i> {{getFormateDate(message.message.meta.date) |\n" +
     "                    date:'dd/MM/yyyy @ H:mm' :'GMT'}}\n" +
     "                </p>\n" +
-    "                <i class=\"fa fa-check\"></i>\n" +
-    "                READ:{{message.readByClient}}\n" +
+    "                <div data-ng-class=\"{'message-read' :message.readByClient }\">\n" +
+    "                    <i></i>\n" +
+    "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </li>\n" +
