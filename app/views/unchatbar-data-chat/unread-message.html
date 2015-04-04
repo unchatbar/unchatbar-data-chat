@@ -13,9 +13,9 @@
               </span>
 
             <div class="text-body">
-                <div class="text-message">{{message.message.text}}</div>
+                <div class="text-message">{{message.meta.text}}</div>
                 <small class="text-date">
-                    {{getFormateDate(message.message.meta.date) | date:'dd/MM/yyyy @ H:mm' :'GMT'}}
+                    {{getFormateDate(message.meta.date) | date:'dd/MM/yyyy @ H:mm' :'GMT'}}
                 </small>
             </div>
         </a>

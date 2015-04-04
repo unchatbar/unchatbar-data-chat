@@ -24,7 +24,7 @@ data chat
 * lodash
 * unchatbar-connection
 * luegg.directives
-
+* dexie
 
 ## Get Started
 ```javascript
@@ -37,14 +37,6 @@ configure route see below
 
 
 ## Configure
-
-
-* store message Data in local Storage
-
->
-```javascript
-MessageProvider.setLocalStorage([TRUE/FALSE]);
-```
 
 
 ## API

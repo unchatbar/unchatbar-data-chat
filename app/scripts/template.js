@@ -21,13 +21,13 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "                <a href=\"#\" class=\"media-heading\">{{userMap[message.from].label}}</a>\n" +
     "                <p>\n" +
     "                    <ng-emoticons emoticons-template-url=\"views/unchatbar-data-chat/message.html\"\n" +
-    "                                  emoticons-data=\"message.message.text\" emoticons-options=\"options\"/>\n" +
+    "                                  emoticons-data=\"message.meta.text\" emoticons-options=\"options\"/>\n" +
     "                </p>\n" +
     "                <p class=\"speech-time\">\n" +
-    "                    <i class=\"fa fa-clock-o fa-fw\"></i> {{getFormateDate(message.message.meta.date) |\n" +
+    "                    <i class=\"fa fa-clock-o fa-fw\"></i> {{getFormateDate(message.meta.date) |\n" +
     "                    date:'dd/MM/yyyy @ H:mm' :'GMT'}}\n" +
     "                </p>\n" +
-    "                <div data-ng-class=\"{'message-read' :message.readByClient }\">\n" +
+    "                <div data-ng-class=\"{'message-read' :message.meta.clientRead.length > 0 }\">\n" +
     "                    <i></i>\n" +
     "                </div>\n" +
     "            </div>\n" +
@@ -153,9 +153,9 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "              </span>\n" +
     "\n" +
     "            <div class=\"text-body\">\n" +
-    "                <div class=\"text-message\">{{message.message.text}}</div>\n" +
+    "                <div class=\"text-message\">{{message.meta.text}}</div>\n" +
     "                <small class=\"text-date\">\n" +
-    "                    {{getFormateDate(message.message.meta.date) | date:'dd/MM/yyyy @ H:mm' :'GMT'}}\n" +
+    "                    {{getFormateDate(message.meta.date) | date:'dd/MM/yyyy @ H:mm' :'GMT'}}\n" +
     "                </small>\n" +
     "            </div>\n" +
     "        </a>\n" +

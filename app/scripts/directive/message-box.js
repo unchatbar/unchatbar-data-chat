@@ -26,6 +26,10 @@ angular.module('unchatbar-data-chat').directive('unDataChatMessageBox', [
                 scope.$on('MessageUpdateUnreadMessage', function () {
                     getListByChannel();
                 });
+
+                scope.$on('MessageUpdateClientRead', function () {
+                    getListByChannel();
+                });
                 scope.$watch('channel',function(){
                     getListByChannel();
                 });

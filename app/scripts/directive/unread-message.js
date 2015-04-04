@@ -24,9 +24,7 @@ angular.module('unchatbar-data-chat').directive('unDataChatUnreadMessage', [
                 scope.$on('MessageUpdateUnreadMessage', function () {
                     getUnreadMessage();
                 });
-                scope.$on('MessageUpdateReadMessage', function () {
-                    getUnreadMessage();
-                });
+
 
                 function getUnreadMessage () {
                     scope.getUnreadMessageList();

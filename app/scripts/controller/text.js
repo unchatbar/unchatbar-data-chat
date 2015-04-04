@@ -11,8 +11,8 @@
  * text message
  *
  */
-angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope', '$filter', 'Message','Broker',
-    function ($scope, $filter, Message, Broker) {
+angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope','$q', '$filter', 'Message','Broker',
+    function ($scope,$q, $filter, Message, Broker) {
 
 
         $scope.options = {
@@ -99,7 +99,9 @@ angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope', '$
          *
          */
         $scope.getMessageListByChannel = function (channel) {
-            $scope.messageList = Message.getMessageFromChannel(channel);
+            Message.getMessageFromChannel(channel).then(function(messages){
+                $scope.messageList =messages;
+            });
         };
 
         /**
@@ -112,7 +114,9 @@ angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope', '$
          *
          */
         $scope.getUnreadMessageList = function () {
-            $scope.unreadMessageList = Message.getUnreadMessageMap();
+            Message.getUnreadMessageMap().then(function(messages){
+                $scope.unreadMessageList = messages;
+            });
         };
 
         /**

@@ -12,13 +12,13 @@
                 <a href="#" class="media-heading">{{userMap[message.from].label}}</a>
                 <p>
                     <ng-emoticons emoticons-template-url="views/unchatbar-data-chat/message.html"
-                                  emoticons-data="message.message.text" emoticons-options="options"/>
+                                  emoticons-data="message.meta.text" emoticons-options="options"/>
                 </p>
                 <p class="speech-time">
-                    <i class="fa fa-clock-o fa-fw"></i> {{getFormateDate(message.message.meta.date) |
+                    <i class="fa fa-clock-o fa-fw"></i> {{getFormateDate(message.meta.date) |
                     date:'dd/MM/yyyy @ H:mm' :'GMT'}}
                 </p>
-                <div data-ng-class="{'message-read' :message.readByClient }">
+                <div data-ng-class="{'message-read' :message.clientRead }">
                     <i></i>
                 </div>
             </div>

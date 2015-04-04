@@ -7,7 +7,6 @@
     "es5-shim": "^4.0.0",
     "bootstrap-sass-official": "^3.2.0",
     "components-font-awesome": "~4.3.0",
-    "ngstorage": "~0.3.0",
     "lodash": "~2.4.1",
     "angular-gettext": "~2.0.3",
     "unchatbar-connection": "https://github.com/unchatbar/unchatbar-connection.git#redesign",
@@ -15,7 +14,8 @@
     "ng-emoticons": "~2.0.x",
     "highlightjs": "~8.4.0",
     "angular-elastic": "~2.4.2",
-    "angular-ui-router": "~0.2.13"
+    "angular-ui-router": "~0.2.13",
+    "dexie": "~1.0.4"
   },
   "main": [
     "app/scripts/app.js",
