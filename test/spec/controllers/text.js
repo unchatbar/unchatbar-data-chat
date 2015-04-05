@@ -34,11 +34,17 @@ describe('Controller: phoneBook', function () {
             });
         });
         describe('sendTextMessage', function () {
-            beforeEach(function(){
-                spyOn(MessageService,'getMessageFromChannel').and.returnValue(['messageList']);
-            });
+            beforeEach(inject(function($q){
+                spyOn(MessageService,'getMessageFromChannel').and.callFake(function(){
+                   var defer = $q.defer();
+                    defer.resolve(['messageList']);
+                    return defer.promise;
+                });
+            }));
             it('should call `Message.getMessageFromChannel` with channel',function(){
                 scope.getMessageListByChannel('channelA');
+
+                scope.$apply();
 
                 expect(MessageService.getMessageFromChannel).toHaveBeenCalledWith('channelA');
             });
@@ -46,22 +52,32 @@ describe('Controller: phoneBook', function () {
             it('should set `$scope.messageList ` to return value from `Message.getMessageFromChannel`',function(){
                 scope.getMessageListByChannel('channelA');
 
+                scope.$apply();
+
                 expect(scope.messageList).toEqual(['messageList']);
             });
         });
 
         describe('sendTextMessage', function () {
-            beforeEach(function(){
-                spyOn(MessageService,'getUnreadMessageMap').and.returnValue(['messageList']);
-            });
+            beforeEach(inject(function($q) {
+                spyOn(MessageService, 'getUnreadMessageMap').and.callFake(function () {
+                    var defer = $q.defer();
+                    defer.resolve(['messageList']);
+                    return defer.promise;
+                });
+            }));
             it('should call `Message.getUnreadMessageMap` with channel',function(){
                 scope.getUnreadMessageList();
+
+                scope.$apply();
 
                 expect(MessageService.getUnreadMessageMap).toHaveBeenCalled();
             });
 
             it('should set `$scope.unreadMessageList ` to return value from `Message.getUnreadMessageList`',function(){
                 scope.getUnreadMessageList();
+
+                scope.$apply();
 
                 expect(scope.unreadMessageList).toEqual(['messageList']);
             });

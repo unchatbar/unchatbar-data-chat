@@ -21,15 +21,17 @@ describe('Directive: unDataChatMessageBox', function () {
 
     describe('check html', function () {
         var element;
-        beforeEach(function () {
-            spyOn(MessageService,'getUnreadMessageMap').and.returnValue(
-                [
+        beforeEach(inject(function($q) {
+            spyOn(MessageService, 'getUnreadMessageMap').and.callFake(function () {
+                var defer = $q.defer();
+                defer.resolve([
                     {from: 'userA',message: {text:'test'}},
                     {from: 'userA',message: {text:'test'}}
                 ]);
+                return defer.promise;
+            });
             element = build();
-        });
-
+        }));
         it('should contain size of unread message', inject(function ($rootScope) {
             expect(element.html()).toContain("2 items");
         }));

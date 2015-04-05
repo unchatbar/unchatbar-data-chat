@@ -20,6 +20,13 @@ describe('Directive: unDataChatMessageBox', function () {
         };
     }));
     describe('check init', function () {
+        beforeEach(inject(function($q) {
+            spyOn(MessageService, 'getMessageFromChannel').and.callFake(function () {
+                var defer = $q.defer();
+                defer.resolve([{from: 'userA', message: {text: 'test'}}]);
+                return defer.promise;
+            });
+        }));
         describe('channel' , function() {
             it('should have the value from attribute `channel`', function () {
                 var element = build();
@@ -36,10 +43,14 @@ describe('Directive: unDataChatMessageBox', function () {
 
     describe('check html', function () {
         var element;
-        beforeEach(function () {
-            spyOn(MessageService,'getMessageFromChannel').and.returnValue([{from: 'userA',message: {text:'test'}}]);
+        beforeEach(inject(function($q) {
+            spyOn(MessageService, 'getMessageFromChannel').and.callFake(function () {
+                var defer = $q.defer();
+                defer.resolve([{from: 'userA',message: {text:'test'}}]);
+                return defer.promise;
+            });
             element = build();
-        });
+        }));
 
         it('should contain label from first user', inject(function ($rootScope) {
             expect(element.html()).toContain("labelUserA");
@@ -52,9 +63,14 @@ describe('Directive: unDataChatMessageBox', function () {
 
     describe('check events' , function(){
        describe('MessageUpdateUnreadMessage' , function(){
-           it('should contain label from first user', inject(function ($rootScope) {
+           it('should contain label from first user', inject(function ($q,$rootScope) {
+
+               spyOn(MessageService, 'getMessageFromChannel').and.callFake(function () {
+                   var defer = $q.defer();
+                   defer.resolve([]);
+                   return defer.promise;
+               });
                var element = build();
-               spyOn(MessageService,'getMessageFromChannel').and.returnValue([]);
                element.isolateScope().$broadcast('MessageUpdateUnreadMessage',{});
 
                expect(MessageService.getMessageFromChannel).toHaveBeenCalledWith('channelA');

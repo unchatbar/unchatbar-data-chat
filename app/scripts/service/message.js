@@ -43,7 +43,7 @@ angular.module('unchatbar-data-chat')
                  * init storage
                  */
                 initStorage: function () {
-                    this._db = new window.Dexie('unTextChat2');
+                    this._db = new window.Dexie('unTextChat');
                     this._db.version(this.DBVERSION).stores(
                         {
                             messages: "&messageId,sendId,sendStamp,channel,status,from,meta"
@@ -57,35 +57,21 @@ angular.module('unchatbar-data-chat')
                  * @name initStorage
                  * @methodOf unchatbar-data-chat.Message
                  * @params {Array} users peer id from users
-                 * @params {String} message text
+                 * @params {String} text message text
                  * @params {String} channel name of chat channel
                  * @description
                  *
                  * init storage
                  */
-                send: function (users, message, channel) {
-                    var date = new $window.Date();
-
-                    var message = {
-                        channel: channel,
-                        messageId: this._createUUID(),
-                        sendStamp: date.getTime(),
-                        meta: {
-                            date: date,
-                            text: message
-
-                        },
-                        sendId: '',
-                        status: 'unread',
-                        clientRead: false
-                    };
-
+                send: function (users, text, channel) {
+                    var message = this._createMessage(text, channel);
+                    var sendId = '';
                     _.forEach(users, function (user) {
-                        message.sendId = DataConnection.send(user.id, '', 'dataChat', message) || message.sendId;
-                        console.log(message.sendId);
+                        sendId = DataConnection.send(user.id, '', 'dataChat', message) || sendId;
                     }.bind(this));
-
-                    this.storeMessage(Broker.getPeerId(), message);
+                    var storeMessage = _.clone(message);
+                    storeMessage.sendId = sendId;
+                    this.storeMessage(Broker.getPeerId(), storeMessage);
                 },
 
                 /**
@@ -107,10 +93,10 @@ angular.module('unchatbar-data-chat')
                          * @eventType broadcast on root scope
                          * @description
                          *
-                         * broadcast unread list was update
+                         * broadcast client read message
                          *
                          */
-                         $rootScope.$broadcast('MessageUpdateClientRead', {});
+                        $rootScope.$broadcast('MessageUpdateClientRead', {});
                     });
 
                 },
@@ -161,7 +147,7 @@ angular.module('unchatbar-data-chat')
                  */
                 getMessageFromChannel: function (channel) {
                     var defer = $q.defer();
-                    this._db.messages.where("channel").equals(channel).modify({"status": "read"}).then(function () {
+                    this._db.messages.where('channel').equals(channel).modify({'status': 'read'}).then(function () {
                         /**
                          * @ngdoc event
                          * @name MessageUpdateReadMessage
@@ -173,7 +159,7 @@ angular.module('unchatbar-data-chat')
                          *
                          */
                         $rootScope.$broadcast('MessageUpdateReadMessage', {});
-                        this._db.messages.where("channel").equals(channel).toArray(defer.resolve);
+                        this._db.messages.where('channel').equals(channel).toArray(defer.resolve);
                     }.bind(this));
                     return defer.promise;
                 },
@@ -192,6 +178,33 @@ angular.module('unchatbar-data-chat')
                     var defer = $q.defer();
                     this._db.messages.where("status").equals('unread').toArray(defer.resolve);
                     return defer.promise;
+                },
+
+                /**
+                 * @ngdoc methode
+                 * @name _createMessage
+                 * @methodOf unchatbar-data-chat.Message
+                 * @params {String} text message text
+                 * @params {String} channel name of chat channel
+                 * @description
+                 *
+                 * create a new message object
+                 */
+                _createMessage: function (text, channel) {
+                    var date = new $window.Date();
+
+                    return {
+                        channel: channel,
+                        messageId: this._createUUID(),
+                        sendStamp: date.getTime(),
+                        meta: {
+                            date: date,
+                            text: text
+                        },
+                        sendId: '',
+                        status: 'unread',
+                        clientRead: false
+                    };
                 },
 
                 /* @ngdoc methode

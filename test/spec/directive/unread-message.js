@@ -20,6 +20,14 @@ describe('Directive: unDataChatMessageBox', function () {
         };
     }));
     describe('check init', function () {
+        beforeEach(inject(function($q) {
+            spyOn(MessageService, 'getUnreadMessageMap').and.callFake(function () {
+                var defer = $q.defer();
+                defer.resolve([{from: 'userA', message: {text: 'test'}}]);
+                return defer.promise;
+            });
+            element = build();
+        }));
         describe('userMap' , function(){
             it('should have the value from attribute `user-map`', function () {
                 var element = build();
@@ -31,10 +39,15 @@ describe('Directive: unDataChatMessageBox', function () {
 
     describe('check html', function () {
         var element;
-        beforeEach(function () {
-            spyOn(MessageService,'getUnreadMessageMap').and.returnValue([{from: 'userA',message: {text:'test'}}]);
+
+        beforeEach(inject(function($q) {
+            spyOn(MessageService, 'getUnreadMessageMap').and.callFake(function () {
+                var defer = $q.defer();
+                defer.resolve([{from: 'userA', message: {text: 'test'}}]);
+                return defer.promise;
+            });
             element = build();
-        });
+        }));
 
         it('should contain label from first user', inject(function ($rootScope) {
             expect(element.html()).toContain("labelUserA");
@@ -47,9 +60,14 @@ describe('Directive: unDataChatMessageBox', function () {
 
     describe('check events' , function(){
         describe('MessageUpdateUnreadMessage' , function(){
-            it('should contain label from first user', inject(function ($rootScope) {
+            it('should contain label from first user', inject(function ($q,$rootScope) {
+                spyOn(MessageService, 'getUnreadMessageMap').and.callFake(function () {
+                    var defer = $q.defer();
+                    defer.resolve([]);
+                    return defer.promise;
+                });
                 var element = build();
-                spyOn(MessageService,'getUnreadMessageMap').and.returnValue([]);
+
                 element.isolateScope().$broadcast('MessageUpdateUnreadMessage',{});
 
                 expect(MessageService.getUnreadMessageMap).toHaveBeenCalled();
@@ -57,9 +75,14 @@ describe('Directive: unDataChatMessageBox', function () {
         }) ;
 
         describe('MessageUpdateReadMessage' , function(){
-            it('should contain label from first user', inject(function ($rootScope) {
+            it('should contain label from first user', inject(function ($q,$rootScope) {
+                spyOn(MessageService, 'getUnreadMessageMap').and.callFake(function () {
+                    var defer = $q.defer();
+                    defer.resolve([]);
+                    return defer.promise;
+                });
                 var element = build();
-                spyOn(MessageService,'getUnreadMessageMap').and.returnValue([]);
+
                 element.isolateScope().$broadcast('MessageUpdateReadMessage',{});
 
                 expect(MessageService.getUnreadMessageMap).toHaveBeenCalled();
