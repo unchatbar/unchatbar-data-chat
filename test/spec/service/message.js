@@ -114,7 +114,7 @@ describe('Serivce: phoneBook', function () {
             it('should call `DataConnection.send` for all user with userId,`Message`,messageObject', function () {
                 MessageService.send([{id: 'user'}], 'testText', 'channelA');
 
-                expect(DataConnectionService.send).toHaveBeenCalledWith('user', 'dataChat', {text: 'message'});
+                expect(DataConnectionService.send).toHaveBeenCalledWith('user', 'dataChat', {text: 'message'},'');
 
             });
 

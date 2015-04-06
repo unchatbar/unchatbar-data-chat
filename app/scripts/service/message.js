@@ -67,7 +67,7 @@ angular.module('unchatbar-data-chat')
                     var message = this._createMessage(text, channel);
                     var sendId = '';
                     _.forEach(users, function (user) {
-                        sendId = DataConnection.send(user.id, 'dataChat', message) || sendId;
+                        sendId = DataConnection.send(user.id, 'dataChat', message,sendId) || sendId;
                     }.bind(this));
                     var storeMessage = _.clone(message);
                     storeMessage.sendId = sendId;

@@ -27,6 +27,7 @@ module.exports = function (config) {
             'bower_components/peerjs/peer.js',
             'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
             'bower_components/ngstorage/ngStorage.js',
+            'bower_components/dexie/dist/latest/Dexie.min.js',
             'bower_components/unchatbar-connection/app/scripts/app.js',
             'bower_components/unchatbar-connection/app/scripts/run.js',
             'bower_components/unchatbar-connection/app/scripts/template.js',
@@ -44,7 +45,6 @@ module.exports = function (config) {
             'bower_components/highlightjs/highlight.pack.js',
             'bower_components/angular-elastic/elastic.js',
             'bower_components/angular-ui-router/release/angular-ui-router.js',
-            'bower_components/dexie/dist/latest/Dexie.min.js',
             // endbower
             'bower_components/angular-mocks/angular-mocks.js',
             '!app/scripts/template.js',
