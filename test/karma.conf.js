@@ -58,6 +58,7 @@ module.exports = function (config) {
         // list of files / patterns to exclude
         exclude: [
             'app/scripts/run.js',
+            'bower_components/unchatbar-*/app/scripts/run.js',
             'app/scripts/config/*.js'
         ],
 
