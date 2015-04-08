@@ -2,22 +2,44 @@
     <i></i>
 </div>
 
-<ul class="data-chat-list" data-ng-init="limit=10">
-    <li class="mar-btm" data-ng-repeat="message in messageList | limitTo:(limit*-1) | orderBy:'sendStamp'">
-        <div data-ng-class="{'media-left' : ownPeerId === message.from,'media-right' : ownPeerId !== message.from}" >
+<ul class="data-chat-list" data-ng-init="limit=5">
+    <li class="mar-btm" data-ng-repeat="message in messageList | limitTo:(limit*-1)">
+        <div data-ng-class="{'media-left' : ownPeerId === message.from,'media-right' : ownPeerId !== message.from}">
             <img class="img-circle img-sm" ng-src="{{userMap[message.from].image}}" width="80">
         </div>
         <div class="data-message-body pad-hor" data-ng-class="{'speech-right' : ownPeerId !== message.from}">
             <div class="speech">
                 <a href="#" class="media-heading">{{userMap[message.from].label}}</a>
-                <p>
+
+                <p data-ng-if="message.type === 'text'">
                     <ng-emoticons emoticons-template-url="views/unchatbar-data-chat/message.html"
                                   emoticons-data="message.meta.text" emoticons-options="options"/>
                 </p>
+                <div data-ng-if="message.type === 'file'">
+                    <a data-ng-href="{{blobUrl}}" download="{{file.name}}"
+                       data-ng-if="message.file.type === 'image/jpeg'">
+                        <img width="100px" data-ng-src="{{blobUrl}}" un-get-blob-url data-un-url="message.file.blob"
+                             blob-url="blobUrl">
+                    </a>
+                    <a data-ng-href="{{blobUrl}}" download="{{file.name}}"
+                       data-ng-if="message.file.blob && message.file.type !== 'image/jpeg'">
+                        <i class="fa fa-folder" un-get-blob-url data-un-url="message.file.blob" blob-url="blobUrl"></i>
+                    </a>
+                    <button class="btn btn-default" data-ng-show="!message.file.blob && !message.file.sendGetFile"
+                            data-ng-click="getFileFromClient(message.id,message.from)">get file from client
+                    </button>
+                    <div data-ng-show="!message.file.blob && message.file.sendGetFile">
+                        <i class="fa fa-spinner fa-spin"></i>waiting while file get from client
+                    </div>
+
+                    {{message.file.name}}({{(message.file.size/1048576).toFixed(2)}} MB)
+                </div>
+
                 <p class="speech-time">
                     <i class="fa fa-clock-o fa-fw"></i> {{getFormateDate(message.meta.date) |
                     date:'dd/MM/yyyy @ H:mm' :'GMT'}}
                 </p>
+
                 <div data-ng-class="{'message-read' :message.clientRead }">
                     <i></i>
                 </div>

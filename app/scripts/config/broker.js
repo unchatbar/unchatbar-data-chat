@@ -5,3 +5,4 @@ angular.module('unchatbar-data-chat')
             BrokerProvider.setHost('0.0.0.0');
             BrokerProvider.setPort(9000);
         }]);
+

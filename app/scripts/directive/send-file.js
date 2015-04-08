@@ -3,19 +3,19 @@
 /**
  * @author Lars Wiedemann
  * @ngdoc directive
- * @name unchatbar-data-chat.directive:unDataChatMessageBox
+ * @name unchatbar-data-chat.directive:unDataChatSendBox
  * @restrict E
  * @description
  *
- * message box
+ * message send file
  *
  */
-angular.module('unchatbar-data-chat').directive('unDataChatMessageBox', [
+angular.module('unchatbar-data-chat').directive('unDataChatSendFile', [
     function () {
         return {
             restrict: 'E',
             replace: false,
-            templateUrl: 'views/unchatbar-data-chat/message-box.html',
+            templateUrl: 'views/unchatbar-data-chat/send-file.html',
             controller: 'unDataChatText',
             scope: {
                 channel: '@',
@@ -24,14 +24,6 @@ angular.module('unchatbar-data-chat').directive('unDataChatMessageBox', [
             link: function (scope) {
 
                 scope.$on('MessageUpdateUnreadMessage', function () {
-                    getListByChannel();
-                });
-
-                scope.$on('MessageUpdateFile', function () {
-                    getListByChannel();
-                });
-
-                scope.$on('MessageUpdateClientRead', function () {
                     getListByChannel();
                 });
                 scope.$watch('channel',function(){

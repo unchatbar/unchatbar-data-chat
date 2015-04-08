@@ -11,22 +11,39 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "    <i></i>\n" +
     "</div>\n" +
     "\n" +
-    "<ul class=\"data-chat-list\" data-ng-init=\"limit=10\">\n" +
-    "    <li class=\"mar-btm\" data-ng-repeat=\"message in messageList | limitTo:(limit*-1) | orderBy:'sendStamp'\">\n" +
-    "        <div data-ng-class=\"{'media-left' : ownPeerId === message.from,'media-right' : ownPeerId !== message.from}\" >\n" +
+    "<ul class=\"data-chat-list\" data-ng-init=\"limit=5\">\n" +
+    "    <li class=\"mar-btm\" data-ng-repeat=\"message in messageList | limitTo:(limit*-1)\">\n" +
+    "        <div data-ng-class=\"{'media-left' : ownPeerId === message.from,'media-right' : ownPeerId !== message.from}\">\n" +
     "            <img class=\"img-circle img-sm\" ng-src=\"{{userMap[message.from].image}}\" width=\"80\">\n" +
     "        </div>\n" +
     "        <div class=\"data-message-body pad-hor\" data-ng-class=\"{'speech-right' : ownPeerId !== message.from}\">\n" +
     "            <div class=\"speech\">\n" +
     "                <a href=\"#\" class=\"media-heading\">{{userMap[message.from].label}}</a>\n" +
-    "                <p>\n" +
+    "\n" +
+    "                <p data-ng-if=\"message.type === 'text'\">\n" +
     "                    <ng-emoticons emoticons-template-url=\"views/unchatbar-data-chat/message.html\"\n" +
     "                                  emoticons-data=\"message.meta.text\" emoticons-options=\"options\"/>\n" +
     "                </p>\n" +
+    "                <p data-ng-if=\"message.type === 'file'\">\n" +
+    "                    <a ng-href=\"{{blobUrl}}\" target=\"_blank\" data-ng-if=\"message.meta.fileType === 'image/jpeg'\">\n" +
+    "                        <img width=\"100px\" data-ng-src=\"{{blobUrl}}\" un-get-blob-url url=\"message.meta.blob\"\n" +
+    "                             blob-url=\"blobUrl\">\n" +
+    "                    </a>\n" +
+    "                    <a ng-href=\"{{blobUrl}}\" target=\"_blank\" data-ng-if=\"message.meta.fileType !== 'image/jpeg'\">\n" +
+    "                        download\n" +
+    "                        </a>\n" +
+    "                    <br>Name:{{message.meta.fileName}}\n" +
+    "                    <br>Type {{message.meta.fileType}}\n" +
+    "                    <br>Size {{message.meta.fileSize}}\n" +
+    "                    <button class=\"btn btn-default\" data-ng-show=\"!message.meta.blob\"\n" +
+    "                            data-ng-click=\"getFileFromClient(message.id,message.from)\">get file from client</button>\n" +
+    "                </p>\n" +
+    "\n" +
     "                <p class=\"speech-time\">\n" +
     "                    <i class=\"fa fa-clock-o fa-fw\"></i> {{getFormateDate(message.meta.date) |\n" +
     "                    date:'dd/MM/yyyy @ H:mm' :'GMT'}}\n" +
     "                </p>\n" +
+    "\n" +
     "                <div data-ng-class=\"{'message-read' :message.clientRead }\">\n" +
     "                    <i></i>\n" +
     "                </div>\n" +
@@ -115,7 +132,7 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
 
 
   $templateCache.put('views/unchatbar-data-chat/send-box.html',
-    "<div class=\"send-box\">\n" +
+    "<div class=\"send-box\" data-ng-show=\"channel\">\n" +
     "    <form>\n" +
     "        <label for=\"input-message\" translate>Your message</label>\n" +
     "        <div class=\"send-input\">\n" +
@@ -134,6 +151,13 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "        </div>\n" +
     "    </form>\n" +
     "</div>\n"
+  );
+
+
+  $templateCache.put('views/unchatbar-data-chat/send-file.html',
+    "<div class=\"un-send-file\" data-ng-show=\"channel\" >\n" +
+    "    <input type=\"file\" un-file-reader>\n" +
+    "</div>"
   );
 
 
