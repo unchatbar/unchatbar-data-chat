@@ -26,7 +26,7 @@
                         <i class="fa fa-folder" un-get-blob-url data-un-url="message.file.blob" blob-url="blobUrl"></i>
                     </a>
                     <a href="#" data-ng-show="!message.file.blob && !message.file.sendGetFile">
-                            <i class="fa fa-download" data-ng-click="getFileFromClient(message.id,message.from)"></i>
+                            <i class="fa fa-download" data-ng-click="getFileFromClient(message.from,message.id)"></i>
                     </a>
                     <div data-ng-show="!message.file.blob && message.file.sendGetFile">
                         <i class="fa fa-spinner fa-spin"></i>waiting while file get from client

@@ -32,7 +32,7 @@ angular.module('unchatbar-data-chat')
                  * @returns {Number} databse version
                  *
                  */
-                DBVERSION: 3,
+                DBVERSION: 1,
 
                 /**
                  * @ngdoc methode
@@ -56,13 +56,13 @@ angular.module('unchatbar-data-chat')
                  * @ngdoc methode
                  * @name getFileFromClient
                  * @methodOf unchatbar-data-chat.Message
-                 * @params {String} messageId id of file message
                  * @params {String} receiver receiver of client
+                 * @params {String} messageId id of file message
                  * @description
                  *
                  * aks client for blob file
                  */
-                getFileFromClient : function(messageId,receiver){
+                getFileFromClient : function(receiver,messageId){
                     this._db.messages.where('messageId').equals(messageId).modify(function(message) {
                         message.file.sendGetFile = true;
                     }).then(function(){

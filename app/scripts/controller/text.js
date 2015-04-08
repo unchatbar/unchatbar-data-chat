@@ -104,8 +104,8 @@ angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope','$q
              Message.sendFile(user, file,blobFile, channel);
         };
 
-        $scope.getFileFromClient = function(mesageId,from){
-            Message.getFileFromClient(mesageId,from);
+        $scope.getFileFromClient = function(from,messageId){
+            Message.getFileFromClient(from,messageId);
         }
 
         /**
