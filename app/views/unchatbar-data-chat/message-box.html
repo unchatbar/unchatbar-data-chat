@@ -17,12 +17,12 @@
                 </p>
                 <div class="un-file-message" data-ng-if="message.type === 'file'">
                     <a data-ng-href="{{blobUrl}}" download="{{file.name}}"
-                       data-ng-if="message.file.type === 'image/jpeg'">
+                       data-ng-if="message.file.type.substring(0, 5) === 'image'">
                         <img class="un-file-preview" data-ng-src="{{blobUrl}}" un-get-blob-url data-un-url="message.file.blob"
                              blob-url="blobUrl">
                     </a>
                     <a class="un-file-store" data-ng-href="{{blobUrl}}" download="{{file.name}}"
-                       data-ng-if="message.file.blob && message.file.type !== 'image/jpeg'">
+                       data-ng-if="message.file.blob && message.file.type.substring(0, 5) !== 'image'">
                         <i un-get-blob-url data-un-url="message.file.blob" blob-url="blobUrl"></i>
                     </a>
                     <a class="un-file-download"  href="#" data-ng-show="!message.file.blob && !message.file.sendGetFile">
