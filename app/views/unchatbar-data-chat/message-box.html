@@ -15,24 +15,25 @@
                     <ng-emoticons emoticons-template-url="views/unchatbar-data-chat/message.html"
                                   emoticons-data="message.meta.text" emoticons-options="options"/>
                 </p>
-                <div data-ng-if="message.type === 'file'">
+                <div class="un-file-message" data-ng-if="message.type === 'file'">
                     <a data-ng-href="{{blobUrl}}" download="{{file.name}}"
                        data-ng-if="message.file.type === 'image/jpeg'">
-                        <img width="100px" data-ng-src="{{blobUrl}}" un-get-blob-url data-un-url="message.file.blob"
+                        <img class="un-file-preview" data-ng-src="{{blobUrl}}" un-get-blob-url data-un-url="message.file.blob"
                              blob-url="blobUrl">
                     </a>
-                    <a data-ng-href="{{blobUrl}}" download="{{file.name}}"
+                    <a class="un-file-store" data-ng-href="{{blobUrl}}" download="{{file.name}}"
                        data-ng-if="message.file.blob && message.file.type !== 'image/jpeg'">
-                        <i class="fa fa-folder" un-get-blob-url data-un-url="message.file.blob" blob-url="blobUrl"></i>
+                        <i un-get-blob-url data-un-url="message.file.blob" blob-url="blobUrl"></i>
                     </a>
-                    <a href="#" data-ng-show="!message.file.blob && !message.file.sendGetFile">
-                            <i class="fa fa-download" data-ng-click="getFileFromClient(message.from,message.id)"></i>
+                    <a class="un-file-download"  href="#" data-ng-show="!message.file.blob && !message.file.sendGetFile">
+                            <i  data-ng-click="getFileFromClient(message.from,message.id)"></i>
                     </a>
-                    <div data-ng-show="!message.file.blob && message.file.sendGetFile">
-                        <i class="fa fa-spinner fa-spin"></i>waiting while file get from client
+                    <div class="un-file-wait-for-download" data-ng-show="!message.file.blob && message.file.sendGetFile">
+                        <i class=""></i>
                     </div>
-
-                    {{message.file.name}}({{(message.file.size/1048576).toFixed(2)}} MB)
+                    <div class="un-file-info">
+                        {{message.file.name}}({{(message.file.size/1048576).toFixed(2)}} MB)
+                    </div>
                 </div>
 
                 <p class="speech-time">

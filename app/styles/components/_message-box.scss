@@ -10,10 +10,38 @@
   .mar-btm {
     margin-bottom: 15px;
   }
+  white-space: nowrap;
   .media-left {
     float: left
   }
+  .un-file-message {
 
+  }
+  .un-file-preview {
+    width: 100px;
+  }
+  .un-file-store {
+    i {
+      @extend .fa, .fa-folder;
+      font-size: 2em;
+    }
+  }
+  .un-file-download {
+    i {
+      @extend .fa, .fa-download;
+      font-size: 2em;
+    }
+  }
+  .un-file-info {
+    color:grey;
+    font-size: 1em;
+  }
+  .un-file-wait-for-download {
+    i {
+      @extend .fa, .fa-spinner, .fa-spin;
+      font-size: 2em;
+    }
+  }
   .media-right {
     float: right
   }
@@ -29,7 +57,7 @@
   .message-read {
     i {
       @extend .fa, .fa-check;
-      color:green;
+      color: green;
     }
   }
   .speech {
