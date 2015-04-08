@@ -25,9 +25,9 @@
                        data-ng-if="message.file.blob && message.file.type !== 'image/jpeg'">
                         <i class="fa fa-folder" un-get-blob-url data-un-url="message.file.blob" blob-url="blobUrl"></i>
                     </a>
-                    <button class="btn btn-default" data-ng-show="!message.file.blob && !message.file.sendGetFile"
-                            data-ng-click="getFileFromClient(message.id,message.from)">get file from client
-                    </button>
+                    <a href="#" data-ng-show="!message.file.blob && !message.file.sendGetFile">
+                            <i class="fa fa-download" data-ng-click="getFileFromClient(message.id,message.from)"></i>
+                    </a>
                     <div data-ng-show="!message.file.blob && message.file.sendGetFile">
                         <i class="fa fa-spinner fa-spin"></i>waiting while file get from client
                     </div>

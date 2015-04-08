@@ -43,7 +43,7 @@ angular.module('unchatbar-data-chat')
                  * init storage
                  */
                 initStorage: function () {
-                    this._db = new window.Dexie('unTextChatTT');
+                    this._db = new window.Dexie('unTextChat');
                     this._db.version(this.DBVERSION).stores(
                         {
                             messages: "&id,messageId,sendId,sendStamp,channel,status,from,meta,file"

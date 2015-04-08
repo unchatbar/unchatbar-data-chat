@@ -14,6 +14,7 @@ describe('Serivce: phoneBook', function () {
     }));
 
     var mockDb = {
+        transaction : function(){},
         messages: {
             where: function () {
                 return this;
@@ -25,7 +26,8 @@ describe('Serivce: phoneBook', function () {
             },
             add: function () {
             },
-            toArray : function(){}
+            toArray : function(){},
+            sortBy : function(){}
 
         }
     };
@@ -65,7 +67,7 @@ describe('Serivce: phoneBook', function () {
                 MessageService.initStorage();
 
                 expect(storageMock.stores).toHaveBeenCalledWith({
-                    messages: "&messageId,sendId,sendStamp,channel,status,from,meta"
+                    messages: "&id,messageId,sendId,sendStamp,channel,status,from,meta,file"
                 });
             });
 
@@ -88,10 +90,12 @@ describe('Serivce: phoneBook', function () {
                     return mockWindowDate;
                 });
 
-                expect(MessageService._createMessage('testText', 'ChannelA')).toEqual({
+                expect(MessageService._createMessage('testText', 'ChannelA','messageType')).toEqual({
+                    id: 'message-uui-id',
                     channel: 'ChannelA',
                     messageId: 'message-uui-id',
                     sendStamp: mockWindowDate.getTime(),
+                    type : 'messageType',
                     meta: {
                         date: mockWindowDate,
                         text: 'testText'
@@ -171,6 +175,9 @@ describe('Serivce: phoneBook', function () {
             var oldDate = Date, mockWindowDate = 'date';
             beforeEach(inject(function ($q) {
                 MessageService._db = mockDb;
+                spyOn(MessageService._db,'transaction').and.callFake(function(mod,table,cb){
+                    cb();
+                });
                 spyOn(MessageService._db.messages, 'add').and.callFake(function () {
                     var defer = $q.defer();
                     defer.resolve();
@@ -211,8 +218,12 @@ describe('Serivce: phoneBook', function () {
         });
 
         describe('getMessageFromChannel', function () {
+            var sortField;
             beforeEach(inject(function ($q) {
                 MessageService._db = mockDb;
+                spyOn(MessageService._db,'transaction').and.callFake(function(mod,table,cb){
+                    cb();
+                });
                 spyOn(MessageService._db.messages, 'where').and.callThrough();
                 spyOn(MessageService._db.messages, 'equals').and.callThrough();
                 spyOn(MessageService._db.messages, 'modify').and.callFake(function () {
@@ -220,7 +231,8 @@ describe('Serivce: phoneBook', function () {
                     defer.resolve();
                     return defer.promise;
                 });
-                spyOn(MessageService._db.messages, 'toArray').and.callFake(function (promise) {
+                spyOn(MessageService._db.messages, 'sortBy').and.callFake(function (sort,promise) {
+                    sortField = sort;
                     promise.call(this,['messageList']);
                 });
                 spyOn(rootScope, '$broadcast').and.returnValue(true);
@@ -251,12 +263,20 @@ describe('Serivce: phoneBook', function () {
                 expect(rootScope.$broadcast).toHaveBeenCalledWith('MessageUpdateReadMessage',{});
             });
 
-            it('should call _db.messages.toArray', function () {
+            it('should call sortBy with `sendStamp`', function () {
                 MessageService.getMessageFromChannel('channelA');
 
                 rootScope.$apply();
 
-                expect(MessageService._db.messages.toArray).toHaveBeenCalled();
+                expect(sortField).toBe('sendStamp');
+            });
+
+            it('should call _db.messages.sortBy', function () {
+                MessageService.getMessageFromChannel('channelA');
+
+                rootScope.$apply();
+
+                expect(MessageService._db.messages.sortBy).toHaveBeenCalled();
             });
 
             it('should return a messagelist', function () {
@@ -272,11 +292,16 @@ describe('Serivce: phoneBook', function () {
         });
 
         describe('getUnreadMessageMap', function () {
+            var sortField;
             beforeEach(inject(function ($q) {
                 MessageService._db = mockDb;
+                spyOn(MessageService._db,'transaction').and.callFake(function(mod,table,cb){
+                    cb();
+                });
                 spyOn(MessageService._db.messages, 'where').and.callThrough();
                 spyOn(MessageService._db.messages, 'equals').and.callThrough();
-                spyOn(MessageService._db.messages, 'toArray').and.callFake(function (promise) {
+                spyOn(MessageService._db.messages, 'sortBy').and.callFake(function (sort,promise) {
+                    sortField = sort;
                     promise.call(this,['messageList']);
                 });
             }));
@@ -291,12 +316,20 @@ describe('Serivce: phoneBook', function () {
 
                 expect(MessageService._db.messages.equals).toHaveBeenCalledWith('unread');
             });
-            it('should call _db.messages.toArray', function () {
+            it('should call _db.messages.sortBy', function () {
                 MessageService.getUnreadMessageMap();
 
                 rootScope.$apply();
 
-                expect(MessageService._db.messages.toArray).toHaveBeenCalled();
+                expect(MessageService._db.messages.sortBy).toHaveBeenCalled();
+            });
+
+            it('should call sortBy with `sendStamp`', function () {
+                MessageService.getUnreadMessageMap();
+
+                rootScope.$apply();
+
+                expect(sortField).toBe('sendStamp');
             });
 
             it('should return a messagelist', function () {
