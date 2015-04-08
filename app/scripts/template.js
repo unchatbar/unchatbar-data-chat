@@ -24,20 +24,26 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "                    <ng-emoticons emoticons-template-url=\"views/unchatbar-data-chat/message.html\"\n" +
     "                                  emoticons-data=\"message.meta.text\" emoticons-options=\"options\"/>\n" +
     "                </p>\n" +
-    "                <p data-ng-if=\"message.type === 'file'\">\n" +
-    "                    <a ng-href=\"{{blobUrl}}\" target=\"_blank\" data-ng-if=\"message.meta.fileType === 'image/jpeg'\">\n" +
-    "                        <img width=\"100px\" data-ng-src=\"{{blobUrl}}\" un-get-blob-url url=\"message.meta.blob\"\n" +
+    "                <div class=\"un-file-message\" data-ng-if=\"message.type === 'file'\">\n" +
+    "                    <a data-ng-href=\"{{blobUrl}}\" download=\"{{file.name}}\"\n" +
+    "                       data-ng-if=\"message.file.type.substring(0, 5) === 'image'\">\n" +
+    "                        <img class=\"un-file-preview\" data-ng-src=\"{{blobUrl}}\" un-get-blob-url data-un-url=\"message.file.blob\"\n" +
     "                             blob-url=\"blobUrl\">\n" +
     "                    </a>\n" +
-    "                    <a ng-href=\"{{blobUrl}}\" target=\"_blank\" data-ng-if=\"message.meta.fileType !== 'image/jpeg'\">\n" +
-    "                        download\n" +
-    "                        </a>\n" +
-    "                    <br>Name:{{message.meta.fileName}}\n" +
-    "                    <br>Type {{message.meta.fileType}}\n" +
-    "                    <br>Size {{message.meta.fileSize}}\n" +
-    "                    <button class=\"btn btn-default\" data-ng-show=\"!message.meta.blob\"\n" +
-    "                            data-ng-click=\"getFileFromClient(message.id,message.from)\">get file from client</button>\n" +
-    "                </p>\n" +
+    "                    <a class=\"un-file-store\" data-ng-href=\"{{blobUrl}}\" download=\"{{file.name}}\"\n" +
+    "                       data-ng-if=\"message.file.blob && message.file.type.substring(0, 5) !== 'image'\">\n" +
+    "                        <i un-get-blob-url data-un-url=\"message.file.blob\" blob-url=\"blobUrl\"></i>\n" +
+    "                    </a>\n" +
+    "                    <a class=\"un-file-download\"  href=\"#\" data-ng-show=\"!message.file.blob && !message.file.sendGetFile\">\n" +
+    "                            <i  data-ng-click=\"getFileFromClient(message.from,message.id)\"></i>\n" +
+    "                    </a>\n" +
+    "                    <div class=\"un-file-wait-for-download\" data-ng-show=\"!message.file.blob && message.file.sendGetFile\">\n" +
+    "                        <i class=\"\"></i>\n" +
+    "                    </div>\n" +
+    "                    <div class=\"un-file-info\">\n" +
+    "                        {{message.file.name}}({{(message.file.size/1048576).toFixed(2)}} MB)\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
     "\n" +
     "                <p class=\"speech-time\">\n" +
     "                    <i class=\"fa fa-clock-o fa-fw\"></i> {{getFormateDate(message.meta.date) |\n" +
@@ -156,7 +162,8 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
 
   $templateCache.put('views/unchatbar-data-chat/send-file.html',
     "<div class=\"un-send-file\" data-ng-show=\"channel\" >\n" +
-    "    <input type=\"file\" un-file-reader>\n" +
+    "    <i></i>\n" +
+    "    <input class=\"upload\" type=\"file\" un-file-reader>\n" +
     "</div>"
   );
 
