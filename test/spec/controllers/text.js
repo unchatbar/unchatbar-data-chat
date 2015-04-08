@@ -33,7 +33,7 @@ describe('Controller: phoneBook', function () {
                expect(MessageService.send).toHaveBeenCalledWith(['user'],'testText','channelA');
             });
         });
-        describe('sendTextMessage', function () {
+        describe('getMessageFromChannel', function () {
             beforeEach(inject(function($q){
                 spyOn(MessageService,'getMessageFromChannel').and.callFake(function(){
                    var defer = $q.defer();
@@ -58,7 +58,7 @@ describe('Controller: phoneBook', function () {
             });
         });
 
-        describe('sendTextMessage', function () {
+        describe('getUnreadMessageList', function () {
             beforeEach(inject(function($q) {
                 spyOn(MessageService, 'getUnreadMessageMap').and.callFake(function () {
                     var defer = $q.defer();
@@ -80,6 +80,28 @@ describe('Controller: phoneBook', function () {
                 scope.$apply();
 
                 expect(scope.unreadMessageList).toEqual(['messageList']);
+            });
+        });
+
+        describe('sendFileMessage', function () {
+            it('should call `Message.send` with user,text channel',function(){
+                spyOn(MessageService,'sendFile').and.returnValue(true);
+                scope.text = 'testText';
+
+                scope.sendFileMessage(['user'],'channelA','blob','file');
+
+                expect(MessageService.sendFile).toHaveBeenCalledWith(['user'],'file','blob','channelA');
+            });
+        });
+
+        describe('getFileFromClient', function () {
+            it('should call `Message.send` with user,text channel',function(){
+                spyOn(MessageService,'getFileFromClient').and.returnValue(true);
+                scope.text = 'testText';
+
+                scope.getFileFromClient('receiver','messageId');
+
+                expect(MessageService.getFileFromClient).toHaveBeenCalledWith('receiver','messageId');
             });
         });
 

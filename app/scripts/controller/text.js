@@ -97,15 +97,24 @@ angular.module('unchatbar-data-chat').controller('unDataChatText', ['$scope','$q
          * @params {String} channel name of chat channel
          * @description
          *
-         * send message to selected users from phone-book
-         * directive call sendTextMessage by help of attribute (userIds,channel)
+         * send file message to selected users from phone-book
          */
         $scope.sendFileMessage = function (user, channel,blobFile,file) {
              Message.sendFile(user, file,blobFile, channel);
         };
 
-        $scope.getFileFromClient = function(from,messageId){
-            Message.getFileFromClient(from,messageId);
+        /**
+         * @ngdoc methode
+         * @name sendTextMessage
+         * @methodOf unchatbar-data-chat.controller:unDataChatText
+         * @params {Array} users peer id from users
+         * @params {String} channel name of chat channel
+         * @description
+         *
+         * send message to get file blob
+         */
+        $scope.getFileFromClient = function(receiver,messageId){
+            Message.getFileFromClient(receiver,messageId);
         }
 
         /**
