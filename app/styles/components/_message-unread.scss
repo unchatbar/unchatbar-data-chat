@@ -1,17 +1,12 @@
 .data-chat-list-unread {
-  @extend .list-group;
-  li {
-    @extend .list-group-item;
-  }
+  @extend .dropdown-menu;
   .chat-header {
     @extend .dropdown-header;
     padding: 15px;
-    border:0px;
+    border-bottom: 0px solid #e5e5e5;
+
     .chat-text {
-      @extend .text-muted;
-      font-size: 1.2em;
-      line-height: 1.25;
-      font-weight: 300;
+      @extend .text-sm, .text-muted, .text-thin;
     }
   }
 
