@@ -1,9 +1,11 @@
 .data-chat-list-unread {
   @extend .dropdown-menu;
+  border:0px;
+  position:relative;
   .chat-header {
     @extend .dropdown-header;
     padding: 15px;
-    border-bottom: 0px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 
     .chat-text {
       @extend .text-sm, .text-muted, .text-thin;
@@ -11,6 +13,9 @@
   }
 
   .text-item {
+    font-size: 12px;
+    list-style: outside none none;
+    text-align: left;
     @extend .media;
     .profile-image {
       @extend .media-left;
