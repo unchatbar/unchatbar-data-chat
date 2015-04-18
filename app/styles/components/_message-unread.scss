@@ -2,6 +2,7 @@
   @extend .dropdown-menu;
   border:0px;
   position:relative;
+  box-shadow:0 0 0;
   .chat-header {
     @extend .dropdown-header;
     padding: 15px;
