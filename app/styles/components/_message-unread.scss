@@ -13,13 +13,9 @@
       font-weight: 300;
     }
   }
-  .chat-divider {
-    @extend .divider;
-    margin: 0px;
-  }
+
   .text-item {
     @extend .media;
-    padding: 10px 15px;
     .profile-image {
       @extend .media-left;
       img {

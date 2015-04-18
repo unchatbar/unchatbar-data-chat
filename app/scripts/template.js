@@ -175,7 +175,6 @@ angular.module('unchatbar-data-chat').run(['$templateCache', function($templateC
     "    <li class=\"chat-header\">\n" +
     "        <span class=\"chat-text\" translate>You have {{unreadMessageList.length || 0}} Messages</span>\n" +
     "    </li>\n" +
-    "    <li class=\"chat-divider\"></li>\n" +
     "    <li data-ng-repeat=\"message in unreadMessageList | orderBy:'sendStamp'\">\n" +
     "        <a ui-sref=\"channel({channel: message.channel})\" class=\"text-item\">\n" +
     "              <span class=\"profile-image\">\n" +

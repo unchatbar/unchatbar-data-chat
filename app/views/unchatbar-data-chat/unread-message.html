@@ -4,7 +4,6 @@
     <li class="chat-header">
         <span class="chat-text" translate>You have {{unreadMessageList.length || 0}} Messages</span>
     </li>
-    <li class="chat-divider"></li>
     <li data-ng-repeat="message in unreadMessageList | orderBy:'sendStamp'">
         <a ui-sref="channel({channel: message.channel})" class="text-item">
               <span class="profile-image">
