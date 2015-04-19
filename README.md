@@ -1,5 +1,5 @@
 # Unchatbar Data Chat
-[![Build Status](https://travis-ci.org/unchatbar/unchatbar-data-chat.svg?branch=redesign)](https://travis-ci.org/unchatbar/unchatbar-data-chat)
+[![Build Status](https://travis-ci.org/unchatbar/unchatbar-data-chat.svg?branch=master)](https://travis-ci.org/unchatbar/unchatbar-data-chat)
 
 data chat 
 

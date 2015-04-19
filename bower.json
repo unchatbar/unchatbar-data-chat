@@ -9,7 +9,7 @@
     "components-font-awesome": "~4.3.0",
     "lodash": "~2.4.1",
     "angular-gettext": "~2.0.3",
-    "unchatbar-connection": "https://github.com/unchatbar/unchatbar-connection.git#redesign",
+    "unchatbar-connection": "https://github.com/unchatbar/unchatbar-connection.git#0.1.x",
     "angular-scroll-glue": "~2.0.4",
     "ng-emoticons": "~2.0.x",
     "highlightjs": "~8.4.0",

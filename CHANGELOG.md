@@ -1,4 +1,9 @@
 ## 0.0.11
+Feature:
+* add sass
+* add translation
+
+## 0.0.11
 Bugfix:
 * unread message sort by time and fix date output
 
