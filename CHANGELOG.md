@@ -1,7 +1,9 @@
-## 0.0.11
+
+## 0.1.0
 Feature:
 * add sass
 * add translation
+
 
 ## 0.0.11
 Bugfix:
