@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/unchatbar-text-message.iml" filepath="$PROJECT_DIR$/.idea/unchatbar-text-message.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/unchatbar-data-chat.iml" filepath="$PROJECT_DIR$/.idea/unchatbar-data-chat.iml" />
     </modules>
   </component>
 </project>

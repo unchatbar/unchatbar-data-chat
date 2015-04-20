@@ -1,25 +1,23 @@
-/* VENDOR - Default fall-backs and external files.
+/* Vendors
 ========================================================================== */
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+@import "components-font-awesome/scss/font-awesome.scss";
+@import "unchatbar-connection/app/styles/main.scss";
+// endbower
 
-@import url("../../bower_components/ng-emoticons/dist/ng-emoticons.min.css");
-@import "bootstrap-sass-official/assets/stylesheets/_bootstrap";
-@import "components-font-awesome/scss/font-awesome";
-
-/* Variable
+/* Variables
 ========================================================================== */
-@import "_variables";
+@import "variables";
 
-/* Layout
+/* Layouts
 ========================================================================== */
-@import "_layout";
+@import "layout";
 
-
-/* components
+/* Components
 ========================================================================== */
-
-@import "components/_message-box";
-@import "components/_message-unread";
-@import "components/_send-box";
-@import "components/_send-file";
-@import "components/_count-unread-message";
-
+@import "components/count-unread-message";
+@import "components/message-box";
+@import "components/message-unread";
+@import "components/send-box";
+@import "components/send-file";
