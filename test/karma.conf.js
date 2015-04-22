@@ -36,7 +36,6 @@ module.exports = function (config) {
             'bower_components/peerjs/peer.js',
             'bower_components/unchatbar-connection/app/scripts/app.js',
             'bower_components/unchatbar-connection/app/scripts/run.js',
-            'bower_components/unchatbar-connection/app/scripts/template.js',
             'bower_components/unchatbar-connection/app/scripts/translations.js',
             'bower_components/unchatbar-connection/app/scripts/provider/broker.js',
             'bower_components/unchatbar-connection/app/scripts/service/data-connection.js',
