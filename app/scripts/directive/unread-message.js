@@ -15,10 +15,13 @@ angular.module('unchatbar-data-chat').directive('unDataChatUnreadMessage', [
         return {
             restrict: 'E',
             replace: false,
-            templateUrl: 'views/unchatbar-data-chat/unread-message.html',
+            templateUrl: function(element,scope){
+                return scope.customTemplateUrl || 'views/unchatbar-data-chat/unread-message.html';
+            },
             controller: 'unDataChatText',
             scope: {
-                userMap: '='
+                userMap: '=',
+                customTemplateUrl : '@'
             },
             link: function (scope) {
                 scope.$on('MessageUpdateUnreadMessage', function () {

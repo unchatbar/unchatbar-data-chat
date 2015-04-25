@@ -67,7 +67,7 @@ Message.getUnreadMessageMap();
 
 >
 ```html
-<un-data-chat-message-box data-channel="{{[CHANNELNAME]}}" data-user-map="[USERLIST IN CHANNEL]"></un-data-chat-message-box>
+<un-data-chat-message-box data-custom-template-url="[CUSTOM-TEMPLATEPATH]" data-channel="{{[CHANNELNAME]}}" data-user-map="[USERLIST IN CHANNEL]"></un-data-chat-message-box>
 ```
 
 
@@ -75,14 +75,14 @@ Message.getUnreadMessageMap();
 
 >
 ```html
-<un-data-chat-unread-message data-user-map="[USERLIST IN CHANNEL]"></un-data-chat-unread-message>
+<un-data-chat-unread-message data-custom-template-url="[CUSTOM-TEMPLATEPATH]" data-user-map="[USERLIST IN CHANNEL]"></un-data-chat-unread-message>
 ```
 
 * output count of unread message
 
 >
 ```html
-<un-data-chat-count-unread-message ></un-data-chat-count-unread-message>
+<un-data-chat-count-unread-message data-custom-template-url="[CUSTOM-TEMPLATEPATH]"></un-data-chat-count-unread-message>
 ```
 
 ## Events

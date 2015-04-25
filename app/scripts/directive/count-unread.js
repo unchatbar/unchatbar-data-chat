@@ -15,7 +15,12 @@ angular.module('unchatbar-data-chat').directive('unDataChatCountUnreadMessage', 
         return {
             restrict: 'E',
             replace: false,
-            templateUrl: 'views/unchatbar-data-chat/count-unread-message.html',
+            templateUrl: function(element,scope){
+                return scope.customTemplateUrl || 'views/unchatbar-data-chat/count-unread-message.html';
+            },
+            scope : {
+                customTemplateUrl: '@'
+            },
             controller: 'unDataChatText',
             link: function (scope) {
                 scope.$on('MessageUpdateUnreadMessage', function () {
