@@ -15,14 +15,13 @@ angular.module('unchatbar-data-chat').directive('unDataChatMessageBox', [
         return {
             restrict: 'E',
             replace: false,
-            templateUrl: function(element,scope){
-                return scope.customTemplateUrl || 'views/unchatbar-data-chat/message-box.html';
+            templateUrl: function(element){
+                return element.attr('data-custom-template-url') || 'views/unchatbar-data-chat/message-box.html';
             },
             controller: 'unDataChatText',
             scope: {
                 channel: '@',
-                userMap: '=',
-                customTemplateUrl: '@'
+                userMap: '='
             },
             link: function (scope) {
 
